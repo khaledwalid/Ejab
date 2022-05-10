@@ -1,0 +1,58 @@
+﻿@model  Ejab.BAL.ModelViews.Reports.CustomerDTO
+@{
+                /**/
+
+                ViewBag.Title = "DownloadServiceProviderByIdViewPDF";
+                // Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    table {
+        overflow: visible !important;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tfoot {
+        display: table-row-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+</style>
+
+<!doctype html>
+<h2 style="text-align:center">@Resources.Global.Customers</h2>
+        <table class="table table-striped" style="table-layout: fixed; width: 100%">
+            <thead>
+                <tr>
+                    <th>@Resources.Global.FirstName  </th>
+                    <th>@Resources.Global.LastName   </th>
+
+                    <th>@Resources.Global.Email   </th>
+                    <th>@Resources.Global.Mobile   </th>
+                 
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model != null)
+                {
+                    <tr>
+                        <td>@Model.FirstName   </td>
+                        <td>@Model.LastName    </td>
+                        <td>@Model.Email    </td>
+                        <td>@Model.Mobile </td>
+                       
+                    </tr>
+                }
+
+
+
+
+            </tbody>
+        </table>
+   

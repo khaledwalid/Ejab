@@ -1,0 +1,233 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Ejab.BAL.ModelViews.RuleViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.AdminRules</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Home/Admin/">@Resources.Global.Home </a>
+                </li>
+                <li>
+                    @Resources.Global.AdminRules
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+
+
+                                <div class="row">
+                                  
+                                    <div class="col-sm-3">
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        @using (Html.BeginForm("Index", "Rule", FormMethod.Get))
+                                        {
+                                            <div class="input-group m-b">
+                                                <input type="text" name="search" id="search" placeholder="search" class="form-control">
+                                                <span class="input-group-btn">
+                                                    <button type="submit" class="btn btn-primary  ">@Resources.Global.Search</button>
+
+                                                </span>
+                                            </div>
+
+
+                                        }
+                                    </div>
+                                    <div class="col-sm-3 text-left">
+                                        <div class="form-group">
+                                            <button type="button" class="colore btns-add" data-toggle="modal" data-target="#myModal4"> @Resources.Global.New</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--  -->
+                                <!--  -->
+
+                                <div class="row">
+                                    <div class="table-responsive">
+
+
+                                        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+
+
+                                        </div>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>@Resources.Global.Code </th>
+                                                   
+                                                    <th> @Resources.Global.RuleDescription </th>
+                                                    <th> @Resources.Global.RulDescriptionEng </th>
+
+                                                    <th> </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (var item in Model)
+                                                {
+
+                                                    <tr>
+                                                        <td>@item.Id  </td>
+                                                        <td>@item.Description   </td>
+                                                        <td>@item.DescriptionEng  </td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                @Html.ActionLink(Resources.Global.Edit , "EditRule", "Rule", new { id = @item.Id }, new { @class = "btn btn-outline btn-primary" })
+
+                                                                @*@Html.ActionLink(Resources.Global.Delete , "DeleteRule", "Rule", new { id = @item.Id }, new { @class = "btn btn-outline btn-danger", onclick = "return confirm('Are you sure you wish to delete this Rule?');" })*@
+
+                                                                <button class="btn btn-outline btn-danger demo3" data-id="@item.Id">@Resources.Global.Delete </button>
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-12 text-center">
+                                        <nav aria-label="Page navigation">
+                                            @Html.PagedListPager(Model, Page => Url.Action("Index", "Rule", new { Page, search = Request.QueryString["search"] }))
+
+
+                                        </nav>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="footer text-center">
+            <p>@Resources.Global.footer </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated fadeIn">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <i class="fa fa-clock-o modal-icon"></i>
+                <h4 class="modal-title">Add Rule</h4>
+
+            </div>
+            <div class="modal-body">
+                @{ Html.RenderPartial("~/Views/Rule/_AddRule.cshtml", new Ejab.BAL.ModelViews.RuleViewModel());}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal inmodal" id="EditModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated fadeIn">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <i class="fa fa-clock-o modal-icon"></i>
+                <h4 class="modal-title">Edit Rule</h4>
+
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label> Rule Name</label>
+                    <input type="text" name="txtName" id="txtName" placeholder="Name" class="form-control" />
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="submit" class="btn btn-primary ">Save Changes</button>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.demo3').click(function () {
+            debugger;
+            var id=$(this).attr('data-id');
+
+            swal({
+                 title: '@Resources.Global.SureToDelete ',//,
+                    text: '@Resources.Global.MessageTitle ',
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: '@Resources.Global.Dialogconfirm',
+                cancelButtonText: '@Resources.Global.CancelDeleting',
+                closeOnConfirm: false
+            },
+
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                $.get('/Rule/DeleteRule?id=' + id, function () {
+                                    swal("Deleted!", '@Resources.Global.SuccessfullyDeleted', "success");
+                                    window.location.reload();
+                                                });
+
+                            } else {
+                                $.get('/Rule/Index/', function (data) {
+                                    swal("Cancelled", "@Resources.Global.YourFileSafe :)", "Cancel");
+                                });
+
+
+                            }
+                        });
+        });
+
+
+    });
+    </script>
+
+}

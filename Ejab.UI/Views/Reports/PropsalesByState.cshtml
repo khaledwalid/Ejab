@@ -1,0 +1,204 @@
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+@model  IPagedList<Ejab.BAL.ModelViews.Reports.PropsalesViewModel>
+@{
+    ViewBag.Title = "PropsalesByState";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.Reports</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home  </a>
+                </li>
+                <li>
+                    @Resources.Global.Reports
+                </li>
+                <li>
+                    @Resources.Global.ProposalPrice
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+    <div class="row" style="background-color:white">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            @*<div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group jobss">
+                                            <h3>
+                                                @Resources.Global.ProposalPrice
+                                            </h3>
+                                        </div>
+
+                                    </div>
+                                </div>*@
+                            <div class="ibox-content">
+
+
+
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        @using (Html.BeginForm("PropsalesByState", "Reports", FormMethod.Get))
+                                        {
+
+
+                                            <div class="row form-group">
+                                                <label class="col-sm-2 col-form-label">    @Resources.Global.PropsalState </label>
+                                                <div class=" col-sm-6  ">
+                                                    @*@Html.DropDownList("state", EnumHelper.GetSelectList(typeof(PropsalStat)), "Select My Type", new { @class = "form-control" })*@
+                                                    <select name="state" id="state" class="form-control" >    
+                                                        <option value="-1">@Resources.Global.PleaseSelect</option>                                                   
+                                                        <option value="1">@Resources.Global.Open</option>
+                                                        <option value="2">@Resources.Global.Accepted</option>
+                                                        @*@*<option value="5">@Resources.Global.Rejected</option>*@
+                                                       
+                                                        <option value="6">@Resources.Global.Expired</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="text-center">
+                                                    <button type="submit" class="btn btn-primary  " id="btnsearch">@Resources.Global.Search</button>
+                                                    <button type="button" class="btn btn-success  " id="btnExToPDF" onclick="location.href='@Url.Action("DownloadPropsalesByStatePDF", "Reports")'">@Resources.Global.ExportToPdf</button>
+                                                    <button type="button" class="btn btn-success  " id="btnExToExcel" onclick="location.href='@Url.Action("ExportPropsalesByState", "Reports")'">@Resources.Global.ExportToExcel</button>
+
+
+                                                </div>
+                                            </div>
+
+
+
+
+
+                            <!--  -->
+                            <!--  -->
+
+                                            <br />
+                                            <div class="row">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>@Resources.Global.RequestNumber  </th>
+                                                                <th>@Resources.Global.ServiceProvider   </th>
+                                                                <th>@Resources.Global.Rating   </th>
+                                                                <th>@Resources.Global.offerTitle  </th>
+                                                                <th>@Resources.Global.Date </th>
+                                                                <th>@Resources.Global.Price  </th>
+                                                                <th>@Resources.Global.CustomerName  </th>
+
+                                                                <th>@Resources.Global.PropsalState  </th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if (Model == null || Model.Count() == 0)
+                                                            {
+                                                                <tr class="text-center text-danger"><td colspan="6">@Resources.Global.NoData</td></tr>
+                                                            }
+
+
+                                                            @foreach (var item in Model)
+                {
+                                                                <tr>
+                                                                    <td>@item.Request.RequestNumber    </td>
+                                                                    <td>@item.ServicrProvider   </td>
+                                                                    <td> @String.Format("{0:0.0}", @item.Rating)</td>
+                                                                    <td>@item.Request.Title    </td>
+                                                                    <td>@item.Date.ToShortDateString()  </td>
+                                                                    <td>   @String.Format("{0:n0}", @item.Price)
+                                                                    <td>@item.Request.Requster.FirstName    @item.Request.Requster.LastName     </td>
+
+                                                                    <td class="footable-visible">
+                                                                        @if (@item.PropsalStat.ToString() == "Open")
+                                                                        {  <span class="btn btn-primary btn">@Resources.Global.Open</span>}
+                                                                        @if (@item.PropsalStat.ToString() == "OnProgress")
+                                                                        {  <span class="btn btn-success btn">@Resources.Global.OnProgress </span>}
+                                                                        @if (@item.PropsalStat.ToString() == "Accepted")
+                                                                        {  <span class="btn btn-default btn" style="background-color:dimgray">@Resources.Global.Accepted </span>}
+                                                                        @if (@item.PropsalStat.ToString() == "Closed")
+                                                                        {  <span class="btn btn-danger  btn">@Resources.Global.Close </span>}
+                                                                        @if (@item.PropsalStat.ToString() == "Cancelled")
+                                                                        {  <span class="btn btn-danger  btn">@Resources.Global.Cancelled</span>}
+                                                                        @if (@item.PropsalStat.ToString() == "Expired")
+                                                                        {  <span class="btn btn-info  btn">@Resources.Global.Expired </span>}
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            }
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-sm-12 text-center">
+                                                    <nav aria-label="Page navigation">
+                                                        @Html.PagedListPager(Model, Page => Url.Action("PropsalesByState", "Reports", new { Page, state = Request.QueryString["state"] }))
+                                                    </nav>
+                                                </div>
+
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    @Html.Partial("~/Views/Shared/_Footer.cshtml")
+</div>
+
+<script>
+    $(document).ready(function () {
+      
+
+        if (@Model.Count()==0) {
+
+            $('#btnExToExcel').attr('disabled', 'disabled');
+            $('#btnExToPDF').attr('disabled', 'disabled');
+        }
+        if (@Model.Count()>0) {
+            $('#btnExToExcel').removeAttr('disabled');
+            $('#btnExToPDF').removeAttr('disabled');
+        }
+      
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        var foo = getParameterByName('state'); // "lorem"
+        var nametext=document.getElementById('state');
+        nametext.value=foo;
+        $('#state').attr('title', '@Resources.Global.SelectFromList');
+    })
+</script>
+
+
+

@@ -1,0 +1,57 @@
+﻿
+<div class="  border-bottom">
+    <div class=" ">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="col-xs-6 col-sm-6">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                   
+                    <a href="/Chart/Index/"> <img src="~/Content/Admin/img/logo.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6">
+                <ul class="nav navbar-top-links navbar-right">
+<!--
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                           
+                        </a>
+
+                    </li>
+                    */-->
+                    <li>
+                        @{
+                            if (Request.Cookies["language"] != null)
+                            {
+                                var lang = Request.Cookies["language"].Value.ToString();
+                                if (lang == "ar-EG")
+                                {
+                                    @Html.ActionLink("English", "SetLang", "Home", new { lang = "english", currentURL = Request.Url.AbsoluteUri }, new { @class = "colore", id = "btnlagarb", onclick = "myFunction();" })
+                                }
+                                if (lang == "en-US")
+                                {
+                                    @Html.ActionLink("عربى", "SetLang", "Home", new { lang = "arabic", currentURL = Request.Url.AbsoluteUri }, new { @class = "colore", id = "btnlagarb", onclick = "myFunction();" })
+                                }
+
+                            }
+                            if (Request.Cookies["language"] == null)
+                            {
+                                System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ar-EG");
+                                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ar-EG");
+                                @Html.ActionLink("English", "SetLang", "Home", new { lang = "english", currentURL = Request.Url.AbsoluteUri }, new { @class = "colore", id = "btnlagarb", onclick = "myFunction();" })
+                            }
+                        }
+                       
+                       
+                    </li>
+
+                    <li>
+                        <a href="/Admin/LogOut" class="colore">
+                            <i class="fa fa-sign-out"></i> @Resources.Global.Exit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

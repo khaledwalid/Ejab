@@ -1,0 +1,46 @@
+﻿@model  IEnumerable<Ejab.BAL.ModelViews.Reports.ComplaintViewModel>
+@{
+    ViewBag.Title = "DownloadComplaintsViewPDF";
+   // Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+table { overflow: visible !important; }
+thead { display: table-header-group }
+tfoot { display: table-row-group }
+tr { page-break-inside: avoid }
+</style>
+
+<!doctype html>
+<h2 style="text-align:center;font-style:italic">@Resources.Global.Complaints</h2>
+<br />
+        <table class="table table-striped" style="table-layout: fixed; width: 100%">
+            <thead>
+               
+                <tr>
+                    <th>@Resources.Global.Date </th>
+                    <th>@Resources.Global.Cause   </th>
+
+                    <th>@Resources.Global.Name  </th>
+                    <th>@Resources.Global.Email  </th>
+                    <th>@Resources.Global.Mobile  </th>
+
+                </tr>
+            </thead>
+            <tbody style='height:50px;overflow:hidden;margin:0;padding:400px;'>
+                <tr></tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Date.ToShortDateString()   </td>
+                        <td>@item.Cause   </td>
+                        <td>@item.Name  </td>
+                        <td>@item.Email  </td>
+                        <td>@item.Phone     </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+
+  

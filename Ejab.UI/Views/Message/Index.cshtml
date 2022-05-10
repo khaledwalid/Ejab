@@ -1,0 +1,210 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model  IPagedList<Ejab.BAL.ModelViews.MessageModelView>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2>@Resources.Global.Messages</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home </a>
+                </li>
+                <li>
+                   @Resources.Global.Messages
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+  
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group jobss">
+                                            <h5>
+                                                @Resources.Global.MessagesCount
+                                                <span>
+                                                    @ViewBag.TotalCount
+                                                </span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                    </div>
+                                    <div class="col-sm-6 text-left">
+                                        <div class="form-group">
+
+                                            @using (Html.BeginForm("Index", "Message", FormMethod.Get))
+                                            {
+
+                                                <div class="input-group m-b">
+                                                    <input type="text" name="search" id="search" placeholder= @Resources.Global.Search class="form-control">
+                                                    <span class="input-group-btn">
+                                                        <button type="submit" class="btn btn-primary  ">@Resources.Global.Search</button>
+
+                                                    </span>                                                                      
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!--  -->
+                                <!--  -->
+
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>@Resources.Global.Date  </th>
+                                                    <th>@Resources.Global.Time  </th>
+                                                    <th>@Resources.Global.Title  </th>
+                                                    <th>@Resources.Global.MessageDescription </th>
+                                                    <th>@Resources.Global.SenderCode   </th>
+                                                    <th>@Resources.Global.Sender   </th>
+                                                   
+                                                    <th>@Resources.Global.ReciverCode   </th>
+                                                    <th>@Resources.Global.Reciver   </th>
+                                                  
+                                                    <th>@Resources.Global.MessageStat  </th>
+                                                    <th>@Resources.Global.RequestNumber</th>
+                                                    <th>@Resources.Global.OfferNumber </th>
+                                                   
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (var item in Model)
+                                                {
+
+                                                    <tr>
+                                                       
+                                                            <td> @item.Date.Date.ToShortDateString()  </td>
+                                                        <td>   @String.Format("{0:t tt}", @item.Date.ToShortTimeString()) </td>
+                                                        <td>@item.Title   </td>
+                                                        <td>@item.Description   </td>
+                                                        <td>
+                                                            @item.Sender.Id
+
+                                                        </td>
+                                                        <td>
+                                                           @item.Sender.FirstName  @item.Sender.LastName
+
+                                                        </td>
+                                                       
+                                                        <td>
+                                                            @item.Reciver.Id
+
+                                                        </td>
+                                                        <td>
+                                                            @item.Reciver.FirstName  @item.Reciver.LastName
+
+                                                        </td>
+                                                      
+                                                        <td>
+                                                           
+                                                            @if (@item.Status == true)
+                                                            {
+                                                                <button class="btn btn-info btn-circle" type="button" id="changeState">
+                                                                    <i class="fa fa-check"></i>
+                                                                </button>
+
+                                                            }
+
+                                                            else
+                                                            {
+                                                                <button class="btn btn-warning btn-circle" type="button" id="changeState">
+                                                                    <i class="fa fa-times"></i>
+                                                                </button>
+
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            @*@item.RequestId.HasValue ? @item.RequestId.Value:0*@ 
+                                                            @item.RequestId
+
+                                                        </td>
+                                                        <td>
+                                                            @*@item.OfferId .HasValue ? @item.OfferId .Value:0*@ 
+                                                            @item.OfferId
+
+                                                        </td>
+                                                        @*<td>
+
+                                                            @Html.ActionLink(@Resources.Global.Replay, "EditAdmin", "Customer", new { id = @item.MessageId }, new { @class = "btn btn-primary glyphicon glyphicon-envelope " })
+
+                                                         
+                                                        </td>*@
+
+                                                    </tr>
+                                                }
+                                            </tbody>
+
+
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-12 text-center ">
+                                        <nav aria-label="Page navigation">
+                                            @Html.PagedListPager(Model, Page => Url.Action("Index", "Message", new { Page, search = Request.QueryString["search"] }))
+                                        </nav>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="footer text-center">
+        <p>@Resources.Global.footer  </p>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+    
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        var foo = getParameterByName('search'); // "lorem"
+        var nametext = document.getElementById('search');
+        nametext.value=foo;
+       
+    })
+</script>

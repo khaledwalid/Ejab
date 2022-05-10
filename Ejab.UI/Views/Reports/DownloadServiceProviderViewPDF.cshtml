@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "DownloadServiceProviderViewPDF";
+   // Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    table {
+        overflow: visible !important;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tfoot {
+        display: table-row-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+</style>
+
+<!doctype html>
+<h2 style="text-align:center">@Resources.Global.ServiceProviders</h2>
+        <table class="table table-striped" style="table-layout: fixed; width: 100%" >
+            <thead>
+                <tr>
+                    <th>@Resources.Global.FirstName  </th>
+                    <th>@Resources.Global.LastName   </th>
+
+                    <th>@Resources.Global.Email   </th>
+                    <th>@Resources.Global.Mobile   </th>
+                    <th>@Resources.Global.Rating  </th>
+                    <th>@Resources.Global.IsActive  </th>
+
+                </tr>
+            </thead>
+            <tbody style="margin:0 !important; padding:0 !important;" >
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.FirstName   </td>
+                        <td>@item.LastName    </td>
+                        <td>@item.Email    </td>
+                        <td>@item.Mobile </td>
+                        <td>@item.Rating     </td>
+                        <td>
+                            @if (@item.IsActive == false)
+                            {
+                                <span>@Resources.Global.NotActive</span>
+                            }
+                            @if (@item.IsActive == true)
+                            {
+                                <span>@Resources.Global.IsActive</span>
+                            }
+                        </td>
+
+                        <td>
+                            <br />
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    
+
+
+

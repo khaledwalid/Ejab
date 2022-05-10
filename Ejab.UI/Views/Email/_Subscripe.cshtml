@@ -1,0 +1,158 @@
+﻿@model Ejab.BAL.ModelViews.Email.EmailSubscriptionViewModel
+<div class="container loginss">
+    <h3>اشترك معنا فى القائمه البريديه ليصلك كل جديد</h3>
+    @using (Html.BeginForm("Subscripe", "Email", FormMethod.Post, new { @class = "form-horizontal", id = "frmSubscripe" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true )
+
+        <div class="subcribe-form">
+            @Html.TextBoxFor(x => x.Email, new { id = "txtemail", @class = "form-control", required= "required", name = "email",type="email", placeholder = "البريد الالكترونى"})
+            @Html.ValidationMessageFor(x => x.Email)
+         
+            <button type="button"  class="btn btn-default sweet demo3" onclick="checkEmail(this)"> اشترك</button>
+            @if (@ViewBag.Faluier != null)
+            {
+                <span class="alert alert text-danger ">@Resources.Global.EmailToSubscripRequired</span>
+            }
+
+            @if (@ViewBag.message != null)
+            {
+                <span class="alert alert text-danger ">@Resources.Global.ThanksForSubscription</span>
+            }
+
+        </div>
+ }
+   
+    
+</div>
+@section scripts{
+    
+}
+<script>
+    function PostSubscrip() {
+        $.ajax({
+            type: 'Post',
+            url: '/Email/Subscripe',
+            data: $('#frmSubscripe').serialize(),
+            contentType: 'application/x-www-form-urlencoded',
+            success: function (data) {
+                swal({
+                    title: 'لقد تم الاشتراك فى القائمة البريديه لناقلات ',
+                    text: 'نشكر اشتراكم معنا فى القائمة البريديه سيصلكم كل ماهو جديد لدينا ',
+                    type: "success",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: 'موافق',
+                    closeOnConfirm: false
+                })
+                $("#txtemail").val() = "";
+
+            }
+
+        });
+    }
+    function checkEmail(b) {
+        debugger;
+        var email = $("#txtemail").val();
+        
+        if (email != '') {
+                $.ajax({
+
+                    type: 'Post',
+                    url: '/Email/CheckEmailExist',
+                    data: { "email": email },
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (data) {
+                        if (data.success == true) {
+                            swal(data.message)
+                            document.getElementById("txtemail").focus();
+                        }
+                       
+                      
+                    },
+                    error :function()
+                    {
+                            PostSubscrip();
+                      
+                    }
+                  
+
+                });
+
+
+
+          
+        }
+        else {
+            document.getElementById("txtemail").focus();
+            swal("من فضلك", "ادخل البريد الالكترونى للاشتراك")
+        }
+      
+
+
+    }
+</script>
+@*<script>
+        $(document).ready(function () {
+
+            $('.demo3').click(function (e) {
+                debugger;
+                var email=$("#txtemail").val();
+                if (true){//(@ViewBag.message != null) {
+                    swal("تم اشتراكم من قيل", "تم الاشتراك فى القائمة البريديه من قبل سيصلكم كل جديد لدينا")
+                    document.getElementById("txtemail").focus();
+                }
+                if (email== "") {
+                    document.getElementById("txtemail").focus();
+                    swal("من فضلك", "ادخل البريد الالكترونى للاشتراك")
+                }
+
+                else if ( email != "") {
+                    swal({
+                        title: 'لقد تم الاشتراك فى القائمة البريديه لناقلات ',
+                        text: 'نشكر اشتراكم معنا فى القائمة البريديه سيصلكم كل ماهو جديد لدينا ',
+                        type: "success",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: 'موافق',
+                        closeOnConfirm: false
+                    },
+                           function (isConfirm) {
+                               if (isConfirm) {
+                                   $.post('/Email/Subscripe/' + email, function () {
+                                       swal("شكرا لاشتراكم!", 'شكرا لاشتراكم', "success");
+                                       window.location.reload();
+                                   });
+                               }
+                           });
+
+                }
+
+
+
+                $.ajax({
+                    type: 'Post',
+                    url:'/Email/CheckEmailExist/'+ email,
+                    success: function(data) {
+                        if (data.success == true) {
+                            swal("تم اشتراكم من قيل", "تم الاشتراك فى القائمة البريديه من قبل سيصلكم كل جديد لدينا")
+                            document.getElementById("txtemail").focus();
+                            location.reload(false)
+                        }
+
+                    }
+                });
+
+
+
+
+            });
+        });
+</script>*@
+
+               
+
+
+
+

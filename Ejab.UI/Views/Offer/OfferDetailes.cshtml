@@ -1,0 +1,228 @@
+﻿@using System.Configuration;
+@model Ejab.BAL.ModelViews.OfferViewModel
+
+@{
+    ViewBag.Title = "OfferDetailes";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{ var imagespath = ConfigurationManager.AppSettings["BaseServiceURL"].ToString() + '/' + "OffersImages" + '/';}
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.OfferInfo</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home </a>
+                </li>
+                <li>
+                  @Resources.Global.OfferInfo
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content offers">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins ">
+                            <div class="ibox-content offer_details ">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                            <label class=" "> @Resources.Global.OfferNumber: </label> @Html.DisplayTextFor(x => x.OfferNumber)
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                            <label class=" ">  @Resources.Global.OfferDate : </label> @Model.OfferDate.ToShortDateString()
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                            <label class=" "> @Resources.Global.PublishDate: </label> @Model.PublishDate.ToShortDateString()
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                            <label class=" ">  @Resources.Global.Title: </label>@Html.DisplayTextFor(x => x.Title)
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                            <label class=" ">  @Resources.Global.Description: </label>@Html.DisplayTextFor(x => x.Description)
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                            <label class=" ">@Resources.Global.ServiceProvider : </label>@Html.DisplayTextFor(x => x.ServiceProvider.FirstName) @Html.DisplayTextFor(x => x.ServiceProvider.LastName)
+                                        </div>
+                                        <div class="form-group">
+                                            <label class=" "> @Resources.Global.ServiceProviderRating: </label>
+
+
+                                            @for (var i = 1; i <= Model.ServiceProviderRating; i++)
+                                            {
+                                                @*<span class="starGlowN"></span>*@
+                                                <i class="fa fa-star"></i>
+
+                                            }
+                                            @for (var i = (Model.ServiceProviderRating + 1); i <= 5; i++)
+                                            {
+                                                @*<span class="starFadeN"></span>*@
+                                                <i class="fa fa-star-o"></i>
+                                            }
+
+                                        </div>
+                                    </div>
+                                  
+
+                                  
+                                   
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                           
+
+                                                <label class=" "> @Resources.Global.Price:</label> @String.Format("{0:0.##}", @Model.Price)
+                                     
+
+                                       
+                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                            <label class=" ">@Resources.Global.quantity: </label>@Html.DisplayTextFor(x => x.quantity)
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                            <label class=" ">@Resources.Global.Period: </label>@Html.DisplayTextFor(x => x.Period)
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                           
+                                            @{
+                                                var lang = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+                                                var TypeName = (lang == "ar-EG") ? @Model.TruckTypeNameArb  : @Model.TruckTypeName;
+                                                <label class=" ">@Resources.Global.TruckType: </label>@TypeName
+                                            }
+                                             
+                                          
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ibox-title offers_heading">
+                            <h3> @Resources.Global.OfferDetails</h3>
+                        </div>
+
+                        <!-- accord -->
+                        <div class="panel-group" id="accordion-1" role="tablist" aria-multiselectable="true">
+
+                            <!---->
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo-1">
+                                    <h5 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapseTwo-1" aria-expanded="false" aria-controls="collapseTwo-1">
+                                            @Resources.Global.OfferTrucks
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo-1" aria-expanded="false">
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead><tr><th>@Resources.Global.TruckName</th><th>@Resources.Global.TrucksNumber</th></tr></thead>
+                                                <tbody>
+
+                                                    @foreach (var item in Model.OfferDetails)
+            {
+                                                        <tr>
+                                                            <td>@item.truckName </td>
+                                                            <td>@item.trucksNo</td>
+                                                            
+                                                        </tr>
+                                                }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!---->
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo-2">
+                                    <h5 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapseTwo-2" aria-expanded="false" aria-controls="collapseTwo-1">
+                                           @Resources.Global.OfferImage
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo-2" aria-expanded="false">
+                                    <div class="panel-body">
+                                      <img src= @Model.ImageUrl class="img-responsive img-block img_3" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!---->
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo-3">
+                                    <h5 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapseTwo-3" aria-expanded="false" aria-controls="collapseTwo-3">
+                                           @Resources.Global.AcceptedBy
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo-3" aria-expanded="false">
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead><tr> <th>@Resources.Global.CustomerCode</th> <th>@Resources.Global.CustomerName</th><th>@Resources.Global.AcceptedDate</th><th>@Resources.Global.Notes</th></tr></thead>
+                                                <tbody>
+
+                                                    @foreach (var User in Model.AcceptedBy)
+                                                {
+                                                        <tr>
+                                                            <td>@User.AcceptedUserId   </td>
+                                                            <td>@User.AcceptedUserName  </td>
+                                                            <td>@User.AcceptedDate.Value.ToShortDateString() </td>
+                                                            <td>@User.Notes  </td>
+                                                        </tr>
+                                                }
+
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    @Html.Partial("~/Views/Shared/_Footer.cshtml")
+</div>
+
+

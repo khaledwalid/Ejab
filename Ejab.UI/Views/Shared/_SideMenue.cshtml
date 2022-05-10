@@ -1,0 +1,333 @@
+﻿
+@using Ejab.UI.Models;
+@{
+    MyPrincipal _User = null;
+    if (User.GetType() == typeof(MyPrincipal))
+    {
+        _User = (MyPrincipal)User;
+    }
+}
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header  ">
+                        <div class="dropdown profile-element">
+                            <span>
+                                @if (@_User == null)
+                                {
+
+                                    <img alt="image" class="img-circle" src="~/Content/Admin/img/person-placeholder.jpg" />
+
+                                }
+                                @if (@_User != null)
+                                {
+                                    if (@_User.ProfileImge == null)
+                                    {
+                                        <img src="http://naqelat.sa/Content/Admin/img/person-placeholder.jpg" class="img-circle" />
+
+                                    }
+                                    else
+                                    { <img alt="image" class="img-circle" src=@_User.ProfileImge />}
+                                }
+                            </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                    <span class="block m-t-xs">
+
+                                        @if (@_User == null)
+                                        {
+
+                                            Response.Redirect(Url.Action("Login", "Admin"));
+
+                                        }
+                                        else
+                                        {
+                                            <strong class="font-bold">@Resources.Global.Welcome    @_User.Name</strong>
+
+                                        }
+
+
+                                    </span> <span class="text-muted text-xs block">@Resources.Global.Admin <b class="caret"></b></span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+
+                                <li><a href="/Customer/EditAdminProfile/@_User.Id">@Resources.Global.EditProfile </a></li>
+                                <li class="divider"></li>
+                                <li><a href="/Admin/LogOut">@Resources.Global.Exit</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            ناقلات
+                        </div>
+                    </li>
+
+
+                    <li class="nvItm">
+                        <a href="#"><i class="fa fa-cog "></i> <span class="nav-label">   @Resources.Global.Setting </span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li id="/AboutApp/Index/" class="disabled">
+                                <a href="/AboutApp/Index/"><i class="fa fa-home"></i> @Resources.Global.AboutApp   </a>
+                            </li>
+                            <li id="/AboutUs/Index/" class="disabled">
+                                <a href="/AboutUs/Index/"><i class="fa fa-phone"></i>@Resources.Global.ContactUs   </a>
+                            </li>
+                            <li id="/Customer/ChangePassword/" class="disabled">
+                                <a href="/Customer/ChangePassword/"><i class="fa fa-asterisk"></i> @Resources.Global.ChangePassword  </a>
+                            </li>
+
+
+                            <li id="/Question/Index/" class="disabled">
+                                <a href="/Question/Index/"><i class="fa fa-question-circle"></i> @Resources.Global.Questions  </a>
+                            </li>
+                            <li id="/Setting/Index/" class="disabled">
+                                <a href="/Setting/Index/"><i class="fa fa-home"></i> @Resources.Global.Setting   </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+                    <li class="nvItm">
+                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">@Resources.Global.Users </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li id="/Customer/AllServiceProviders/" class="disabled">
+                                <a href="/Customer/AllServiceProviders"><i class="fa fa-users"></i> @Resources.Global.ServiceProvider    </a>
+                            </li>
+                            <li id="/Customer/AllRequsters" class="disabled">
+                                <a href="/Customer/AllRequsters"><i class="fa fa-users"></i> @Resources.Global.Customer    </a>
+                            </li>
+                            <li id="/Customer/Index/" class="disabled">
+                                <a href="/Customer/Index/"><i class="fa fa-users"></i>  @Resources.Global.Admins    </a>
+                            </li>
+                            @*<li id="/Rule/Index/" class="disabled">
+                                <a href="/Rule/Index/"><i class="fa fa-legal"></i>  @Resources.Global.UserRules  </a>
+                                </li>*@
+                        </ul>
+                    </li>
+
+                    <li class="nvItm">
+                        <a href="#"><i class="fa fa-pie-chart"></i> <span class="nav-label">   @Resources.Global.Statistics </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            @*<li id="/Chart/Index/" class="disabled">
+                                <a href="/Chart/Index/"><i class="fa fa-pie-chart"></i> @Resources.Global.Home  </a>
+                                </li>*@
+                            <li id="/Statistics/Index/" class="disabled">
+                                <a href="/Statistics/Index/"><i class="fa fa-bar-chart"></i>  @Resources.Global.Statistics  </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nvItm">
+                        <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">    @Resources.Global.Messages - @Resources.Global.NotificationsAndMessages  </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li id="/Message/Index/" class="disabled">
+                                <a href="/Message/Index/"><i class="fa fa-envelope"></i> @Resources.Global.Messages    </a>
+                            </li>
+                            <li id="/Message/AddMessage/" class="disabled">
+                                <a href="/Message/AddMessage/"><i class="fa fa-envelope"></i> @Resources.Global.AddMessage    </a>
+                            </li>
+
+                            <li id="/Notify/Index/" class="disabled">
+                                <a href="/Notify/Index/"><i class="fa fa-envelope"></i> @Resources.Global.NotificationsAndMessages  </a>
+                            </li>
+                            <li id="/Complaint/Index/" class="disabled">
+                                <a href="/Complaint/Index/"><i class="fa fa-envelope"></i>@Resources.Global.Complaints </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nvItm">
+                        <a href="#"><i class="fa fa-truck"></i> <span class="nav-label">    @Resources.Global.Trucks  </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li id="/TruckType/Index/" class="disabled">
+                                <a href="/TruckType/Index/"><i class="fa fa-truck"></i> @Resources.Global.TruckType  </a>
+                            </li>
+                            <li id="/Truck/Index/" class="disabled">
+                                <a href="/Truck/Index/"><i class="fa fa-truck"></i> @Resources.Global.Trucks  </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+
+                    <li id="/Offer/Index/" class="disabled">
+                        <a href="/Offer/Index/"><i class="fa fa-newspaper-o"></i> <span class="nav-label">@Resources.Global.Offers  </span></a>
+                    </li>
+
+                    <li id="/Request/Index/" class="disabled">
+                        <a href="/Request/Index/"><i class="fa fa-pencil"></i> <span class="nav-label">@Resources.Global.Requests  </span></a>
+                    </li>
+
+
+
+                    <li id="/Region/Index/" class="disabled">
+                        <a href="/Region/Index/"><i class="fa fa-map-marker"></i> <span class="nav-label">@Resources.Global.Regions  </span></a>
+                    </li>
+                    <li id="/Email/Index" class="disabled">
+                        <a href="/Email/Index"><i class="fa fa-question-circle"></i> <span class="nav-label">@Resources.Global.MailSubsuription  </span></a>
+                    </li>
+
+                    <li class="nvItm">
+                        <a href="#"><i class="fa fa-truck"></i> <span class="nav-label">    @Resources.Global.Reports  </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse ">
+
+                            <li class="nvItm">
+                                <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">  @Resources.Global.ProposalPrice  </span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse ">
+                                    <li id="/Reports/Propsales/" class="disabled">
+                                        <a href="/Reports/Propsales/"><i class="fa fa-money"></i>@Resources.Global.SearchForServiceProvider  </a>
+                                    </li>
+                                    <li id="/Reports/PropsalesInDate/" class="disabled">
+                                        <a href="/Reports/PropsalesInDate/"><i class="fa fa-money"></i> @Resources.Global.ProposalesInInterval </a>
+                                    </li>
+                                    <li id="/Reports/PropsalesByState/" class="disabled">
+                                        <a href="/Reports/PropsalesByState/"><i class="fa fa-money"></i> @Resources.Global.PropsalesByState </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="nvItm">
+                                <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">  @Resources.Global.Requests  </span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse ">
+
+                                    <li id="/Reports/Requests/" class="disabled">
+                                        <a href="/Reports/Requests/"><i class="fa fa-truck"></i> @Resources.Global.SearchForCustomer  </a>
+                                    </li>
+                                    <li id="/Reports/RequestsInInterval/" class="disabled">
+                                        <a href="/Reports/RequestsInInterval/"><i class="fa fa-truck"></i> @Resources.Global.RequestsInInterval  </a>
+                                    </li>
+                                    <li id="/Reports/RequestsInRegion/" class="disabled">
+                                        <a href="/Reports/RequestsInRegion/"><i class="fa fa-truck"></i> @Resources.Global.RequestsInRegion </a>
+                                    </li>
+                                    <li id="/Reports/RequestsByStateId/" class="disabled">
+                                        <a href="/Reports/RequestsByStateId/"><i class="fa fa-truck"></i> @Resources.Global.RequestsByState </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nvItm">
+                                <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">   @Resources.Global.Offers  </span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse ">
+                                    <li id="/Reports/Offers/">
+                                        <a href="/Reports/Offers/"><i class="fa fa-truck"></i> @Resources.Global.SearchForServiceProvider  </a>
+                                    </li>
+                                    <li id="/Reports/OffersInInterval/">
+                                        <a href="/Reports/OffersInInterval/"><i class="fa fa-truck"></i> @Resources.Global.OffersInInterval </a>
+                                    </li>
+                                    <li id="/Reports/OffersInRegion/">
+                                        <a href="/Reports/OffersInRegion/"><i class="fa fa-truck"></i> @Resources.Global.OffersInRegion </a>
+                                    </li>
+                                    <li id="/Reports/OffersByState/">
+                                        <a href="/Reports/OffersByState/"><i class="fa fa-truck"></i> @Resources.Global.OffersByState </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nvItm">
+                                <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">  @Resources.Global.ServiceProviders  </span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse ">
+                                    <li id="/Reports/ServiceProviders/" class="disabled">
+                                        <a href="/Reports/ServiceProviders/"><i class="fa fa-truck"></i> @Resources.Global.ServiceProviders  </a>
+                                    </li>
+                                    <li id="/Reports/ServiceProvidersById/" class="disabled">
+                                        <a href="/Reports/ServiceProvidersById/"><i class="fa fa-truck"></i> @Resources.Global.SearchForServiceProvider  </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nvItm">
+                                <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">  @Resources.Global.Customers  </span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse ">
+                                    <li id="/Reports/Customers/" class="disabled">
+                                        <a href="/Reports/Customers/"><i class="fa fa-truck"></i> @Resources.Global.Customers  </a>
+                                    </li>
+                                    <li id="/Reports/CustomersById/" class="disabled">
+                                        <a href="/Reports/CustomersById/"><i class="fa fa-truck"></i> @Resources.Global.SearchForCustomer</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nvItm">
+                                <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">  @Resources.Global.Complaints  </span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse ">
+                                    <li id="/Reports/Complaints/">
+                                        <a href="/Reports/Complaints/"><i class="fa fa-truck"></i> @Resources.Global.Complaints </a>
+                                    </li>
+                                    <li id="/Reports/ComplaintsInIntervale/">
+                                        <a href="/Reports/ComplaintsInIntervale/"><i class="fa fa-truck"></i>@Resources.Global.ComplaintsInInterval</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nvItm">
+                                <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">  @Resources.Global.Equipments  </span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse ">
+                                    <li id="/Reports/Equipments/">
+                                        <a href="/Reports/Equipments/"><i class="fa fa-truck"></i> @Resources.Global.Equipments </a>
+                                    </li>
+                                    <li id="/Reports/EquipmentsByName/">
+                                        <a href="/Reports/EquipmentsByName/"><i class="fa fa-truck"></i> @Resources.Global.EquipmentByName </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nvItm">
+                                <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">  @Resources.Global.Trucks  </span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse ">
+                                    <li id="/Reports/Trucks/">
+                                        <a href="/Reports/Trucks/"><i class="fa fa-truck"></i> @Resources.Global.Trucks </a>
+                                    </li>
+                                    <li id="/Reports/TrucksByName/">
+                                        <a href="/Reports/TrucksByName/"><i class="fa fa-truck"></i> @Resources.Global.TruckByName </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+
+
+
+                </ul>
+
+
+
+            </div>
+        </nav>
+
+    </div>
+</nav>
+
+<script type="text/javascript">
+    var roles = @Html.Raw(Json.Encode(_User.Roles));
+    for (var i = 0; i < roles.length; i++) {
+        var element= document.getElementById(roles[i]) ;
+        if (element != null) {
+            if (element .classList.contains('disabled')) {
+                element.setAttribute("href", "#");
+            }
+
+        }
+        if (element != null)
+            element.classList.remove("disabled");
+    }
+
+    $(document).ready(function () {
+        debugger;
+        $('.nvItm ul li').click(function () {
+        });
+        var url = window.location.pathname.split("/");
+        var controller = url[1];
+        var action = url[2];
+        var li = document.getElementById('/'+controller+'/'+action+'/') ;
+        $(li).addClass('sub_active');
+        var ul = $(li).parent('ul');
+        ul.addClass('in');
+        ul.attr('aria-expanded', 'true');
+        $(ul).parent('.nvItm').addClass('active');
+    })
+
+</script>

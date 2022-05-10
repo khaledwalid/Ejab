@@ -1,0 +1,128 @@
+﻿@model  IEnumerable<Ejab.BAL.ModelViews.Statictics.StaticticsViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.Statistics</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home  </a>
+                </li>
+                <li>
+                    @Resources.Global.Statistics
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+
+
+
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>@Resources.Global.TrucksOffersNumber </th>
+                                                    <th>@Resources.Global.UsersVistors</th>
+                                                    <th>@Resources.Global.AvailableOffers</th>
+                                                    <th>@Resources.Global.AppDownloadNumbers</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@item.TrucksOrdersNo </td>
+                                                        <td>@item.CustomerNo  </td>
+                                                        <td>@item.OfferNo   </td>
+                                                        <td>@item.AppDownloadsNo  </td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                @Html.ActionLink(Resources.Global.Edit, "EditStatistics", "Statistics", new { id = @item.Id }, new { @class = "btn btn-outline btn-primary" })
+                                                              
+                                                                @*<button class="btn btn-outline btn-danger demo3" data-id="@item.Id">@Resources.Global.Delete </button>*@
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="footer text-center">
+            <p>@Resources.Global.footer  </p>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.demo3').click(function () {
+            debugger;
+            var id=$(this).attr('data-id');
+
+            swal({
+                title: '@Resources.Global.SureToDelete ',//,
+                    text: '@Resources.Global.MessageTitle ',
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+               confirmButtonText: '@Resources.Global.Dialogconfirm',
+                cancelButtonText: '@Resources.Global.CancelDeleting',
+                closeOnConfirm: false
+            },
+
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                $.get('/Statistics/DeleteStatistics?id=' + id, function () {
+                                    swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                                    window.location.reload();
+                                                });
+
+                            } else {
+                                $.get('/Statistics/Index/', function (data) {
+                                    swal("Cancelled", "Your imaginary file is safe :)", "Cancel");
+                                });
+                            }
+                        });
+        });
+
+
+    });
+    </script>
+
+}

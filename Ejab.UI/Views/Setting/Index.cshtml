@@ -1,0 +1,147 @@
+﻿@model  IEnumerable< Ejab.BAL.ModelViews.SettingViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.Setting   </h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home  </a>
+                </li>
+                <li>
+                    @Resources.Global.Setting 
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group jobss">
+                                           
+                                        </div>
+                                    </div>
+                                 
+
+                                    @*<div class="col-sm-3 text-left">
+                                        <div class="form-group">
+
+                                            @Html.ActionLink(Resources.Global.New, "AddSetting", "Setting", null, new { @class = "colore btns-add" })
+                                        </div>
+
+
+                                    </div>*@
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>@Resources.Global.Code </th>
+                                                    <th>@Resources.Global.ExpireDayies  </th>
+                                                    <th>@Resources.Global.MaxExpireDayies   </th>
+                                                   
+
+                                                    <th style="width:15%"> </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Id</td>
+                                                        <td>@item.ExpirDayies</td>
+                                                        <td>@item.MaxExpirDayies</td>
+                                                        
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                @Html.ActionLink(Resources.Global.Edit, "EditSetting", "Setting", new { id = @item.Id }, new { @class = "btn btn-outline btn-primary" })
+                                                              
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="footer text-center">
+            <p>@Resources.Global.footer  </p>
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('.demo3').click(function () {
+                debugger;
+                var id = $(this).attr('data-id');
+
+                swal({
+                    title: '@Resources.Global.SureToDelete ',//,
+                    text: '@Resources.Global.MessageTitle ',
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: '@Resources.Global.Dialogconfirm',
+                    cancelButtonText: '@Resources.Global.CancelDeleting',
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+
+                            function (isConfirm) {
+                                if (isConfirm) {
+                                    $.get('/Setting/DeleteType?id=' + id, function () {
+                                        swal("Deleted!", '@Resources.Global.SuccessfullyDeleted', "success");
+                                        window.location.reload();
+                                    });
+
+                                } else {
+                                    swal("Cancelled", "@Resources.Global.YourFileSafe:)", "error");
+                                }
+                            });
+            });
+
+
+        });
+    </script>
+
+}

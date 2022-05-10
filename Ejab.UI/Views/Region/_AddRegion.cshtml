@@ -1,0 +1,36 @@
+﻿@model Ejab.BAL.ModelViews.RegionModelView
+
+
+
+@using (Html.BeginForm("AddRegion", "Region", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12 loginss">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Name</label>
+
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Name)
+                </div>
+            </div>
+            @*<div class="form-group">
+                    <label class="col-lg-2 control-label">Parent </label>
+
+                    @Html.DropDownListFor(x => x.ParanetId, ViewBag.Regions as SelectList, new { @class = "form-control" })
+                </div>*@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary demo3" />
+            </div>
+
+        </div>
+    </div>
+}
+
+
+
+
+

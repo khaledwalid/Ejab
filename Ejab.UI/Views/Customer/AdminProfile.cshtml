@@ -1,0 +1,72 @@
+﻿@model Ejab.BAL.ModelViews.AdminviewModel
+
+@{
+    ViewBag.Title = "AdminProfile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2>@Resources.Global.UserProfile</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Home/Admin/">@Resources.Global.Home </a>
+                </li>
+                <li>
+                    @Resources.Global.UserProfile
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+                                <div class="well well-sm">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-3">
+                                            @*http://naqelat.sa/AdminProfileImgs/*@
+                                            <img src="@Model.ProfileImgPath" class="img-rounded img-responsive" alt="profile">
+
+                                        </div>
+                                        <div class="col-sm-6 col-md-9 porfile">
+                                            <p>
+                                                <i class="fa fa-user"></i>@Html.DisplayTextFor(x => x.FirstName) @Html.DisplayTextFor(x => x.LastName)
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-envelope"></i>@Html.DisplayTextFor(x => x.Email)
+                                            </p>
+                                            @*<p>
+                                                    <i class="fa fa-map-marker"></i>@Html.DisplayTextFor(x => x.Address)
+                                                </p>*@
+                                            <p>
+                                                <i class="fa fa-phone"></i>@Html.DisplayTextFor(x => x.Mobile)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="footer text-center">
+        <p>@Resources.Global.footer  </p>
+    </div>
+</div>
+
+

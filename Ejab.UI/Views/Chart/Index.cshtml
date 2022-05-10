@@ -1,0 +1,256 @@
+﻿@model Ejab.BAL.ModelViews.chartViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2>@Resources.Global.Home </h2>
+            @*<ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home </a>
+                </li>
+                <li>
+                    @Resources.Global.Home
+                </li>
+            </ol>*@
+        </div>
+        @*<div class="col-sm-4 text-left">
+                <br>
+                <br>
+                <a href="Add_faq.html" class="colore btns-add">
+                    إنشاء ملف PDF
+                </a>
+            </div>*@
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-primary pull-right">@Resources.Global.Newest</span>
+                                <h5>@Resources.Global.RequestsNew</h5>
+                            </div>
+                            <div class="ibox-content text-center">
+                                <h1 class="no-margins"> @Model.RequestsCounts </h1>
+                                <small>@Resources.Global.RequestsNew   </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-primary pull-right">@Resources.Global.Heigh</span>
+                                <h5> @Resources.Global.AppUsers </h5>
+                            </div>
+                            <div class="ibox-content text-center">
+                                <h1 class="no-margins"> @Model.Customers </h1>
+                                <small>  @Resources.Global.Customers    </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-primary pull-right">@Resources.Global.Low</span>
+                                <h5> @Resources.Global.TrucksEquipments  </h5>
+                            </div>
+                            <div class="ibox-content text-center">
+                                <h1 class="no-margins"> @Model.Trucks</h1>
+                                <small>@Resources.Global.TrucksCount    </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ibox-title">
+                    </div>
+                    <div class="ibox-content">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="legendColorBox">
+                                        <div style="border:1px solid #000000;padding:1px">
+                                            <div style="width:4px;height:0;border:5px solid #b2d8cf;overflow:hidden"></div>
+                                        </div>
+                                    </td>
+                                    <td class="legendLabel">@Resources.Global.ServiceProviders  </td>
+
+                                    <td class="legendColorBox">
+                                        <div style="border:1px solid #000000;padding:1px">
+                                            <div style="width:4px;height:0;border:5px solid #f8ac59;overflow:hidden"></div>
+                                        </div>
+                                    </td>
+                                    <td class="legendLabel">@Resources.Global.Customers </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            <canvas id="lineChart" height="200"></canvas>
+                            <br>
+                            <p>
+                                <i class="fa fa-clock-o"></i> @Resources.Global.LastUpdate
+                                <span> @DateTime.Now.ToShortDateString()</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+
+                    <div class="ibox-title">
+                        <h5>
+                            @Resources.Global.NewRequests
+                        </h5>
+                        <div ibox-tools=""></div>
+                    </div>
+                    <div class="ibox-content">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="legendColorBox">
+                                        <div style="border:1px solid #000000;padding:1px">
+                                            <div style="width:4px;height:0;border:5px solid #b2d8cf;overflow:hidden"></div>
+                                        </div>
+                                    </td>
+                                    <td class="legendLabel">@Resources.Global.Trucks </td>
+
+                                    <td class="legendColorBox">
+                                        <div style="border:1px solid #000000;padding:1px">
+                                            <div style="width:4px;height:0;border:5px solid #f8ac59;overflow:hidden"></div>
+                                        </div>
+                                    </td>
+                                    <td class="legendLabel">@Resources.Global.Equipments</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            <canvas id="barChart" height="200" ></canvas>
+                            <p>
+                                <i class="fa fa-clock-o"></i> @Resources.Global.LastUpdate
+                                <span> @DateTime.Now.ToShortDateString()</span>
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="footer text-center">
+        <p>@Resources.Global.footer  </p>
+    </div>
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/plugins/chartjs")*@
+
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var lineData = {
+                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "Novemeber", "December"],
+                datasets: [
+                    {
+                        label: "ServiceProvider",
+                        fillColor: "rgba(248, 172, 89,1)",
+                        strokeColor: "rgba(248, 172, 89,0.8)",
+                        pointColor: "rgba(248, 172, 89,0.8)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(248, 172, 89,0.8)",
+                        data: [@Model.ServiceProvidersJanuary,@Model.ServiceProvidersFebruary,@Model.ServiceProvidersMarch,@Model.ServiceProvidersApril,@Model.ServiceProvidersMay,@Model.ServiceProvidersJune,@Model.ServiceProvidersJuly
+                         ,@Model.ServiceProvidersAugust,@Model.ServiceProvidersSeptember,@Model.ServiceProvidersOctober,@Model.ServiceProvidersNovemeber,@Model.ServiceProvidersDecember]
+                    },
+                    {
+                        label: "Customer",
+                        fillColor: "rgba(26,179,148,0.5)",
+                        strokeColor: "rgba(26,179,148,0.7)",
+                        pointColor: "rgba(26,179,148,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(26,179,148,1)",
+                        data: [@Model.CustomerJanuary,@Model.CustomerFebruary,@Model.CustomerMarch,@Model.CustomerApril,@Model.CustomerMay,@Model.CustomerJune,@Model.CustomerJuly
+                       ,@Model.CustomerAugust,@Model.CustomerSeptember,@Model.CustomerOctober,@Model.CustomerNovemeber,@Model.CustomerDecember]
+                    }
+                ]
+            };
+
+            var lineOptions = {
+                scaleShowGridLines: true,
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+                scaleGridLineWidth: 1,
+                bezierCurve: true,
+                bezierCurveTension: 0.4,
+                pointDot: true,
+                pointDotRadius: 4,
+                pointDotStrokeWidth: 1,
+                pointHitDetectionRadius: 20,
+                datasetStroke: true,
+                datasetStrokeWidth: 2,
+                datasetFill: true,
+                responsive: true,
+            };
+
+
+            var ctx = document.getElementById("lineChart").getContext("2d");
+            var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+
+            var barData = {
+                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "Novemeber", "December"],
+                datasets: [
+                    {
+                        label: "Trucks",
+                        fillColor: "rgba(248, 172, 89,1)",
+                        strokeColor: "rgba(248, 172, 89,0.8)",
+                        highlightFill: "rgba(220,220,220,0.75)",
+                        highlightStroke: "rgba(248, 172, 89,0.8)",
+                        data: [@Model.trucksJanuary,@Model.trucksFebruary,@Model.trucksMarch,@Model.trucksApril,@Model.trucksMay,@Model.trucksJune,@Model.trucksJuly
+                        ,@Model.trucksAugust,@Model.trucksSeptember,@Model.trucksOctober,@Model.trucksNovemeber,@Model.trucksDecember]
+                    },
+                    {
+                        label: "Equipment",
+                        fillColor: "rgba(26,179,148,0.5)",
+                        strokeColor: "rgba(26,179,148,0.8)",
+                        highlightFill: "rgba(26,179,148,0.75)",
+                        highlightStroke: "rgba(26,179,148,1)",
+                        data: [@Model.equipmentJanuary,@Model.equipmentFebruary,@Model.equipmentMarch,@Model.equipmentApril,@Model.equipmentMay,@Model.equipmentJune,@Model.equipmentJuly
+                         ,@Model.equipmentAugust,@Model.equipmentSeptember,@Model.equipmentOctober,@Model.equipmentNovemeber,@Model.equipmentDecember]
+                    }
+                ]
+            };
+
+            var barOptions = {
+                scaleBeginAtZero: true,
+                scaleShowGridLines: true,
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+                scaleGridLineWidth: 1,
+                barShowStroke: true,
+                barStrokeWidth: 2,
+                barValueSpacing: 2,
+                barDatasetSpacing: 1,
+                responsive: true,
+            }
+
+
+            var ctx = document.getElementById("barChart").getContext("2d");
+            var myNewChart = new Chart(ctx).Bar(barData, barOptions);
+
+
+
+        });
+    </script>
+}

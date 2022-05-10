@@ -1,0 +1,70 @@
+﻿@model  IEnumerable<Ejab.BAL.ModelViews.RuleViewModel>
+@{
+    ViewBag.Title = "AssignRule";
+}
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col col-sm-6">
+
+
+
+<div class="form-group">
+            <div>
+                <label for="FirstName"> First Name </label>
+                <input type="text" class="form-control" id="FirstName"
+                       name="FirstName"
+                       value=@Request.QueryString["FirstName"].ToString()>
+
+            </div>
+
+            <div>
+                <label for="lastName"> Last Name </label>
+                <input type="text" class="form-control" id="lastName"
+                       name="lastName"
+                       value=@Request.QueryString["lastName"].ToString()>
+
+            </div>
+        </div>
+ 
+    @using (Html.BeginForm("AssignRule", "Customer",  FormMethod.Post))
+    {
+        <input type="hidden" value="@Request.QueryString["userId"].ToString()" name="userId" id="userId" />
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Availabe Rules
+            </div>
+            <div class="panel-body">
+
+
+                @if (Model != null)
+                {
+
+                    foreach (var item in Model)
+                    {
+                        <input type="checkbox" name="selectedObjects" value="@item.Id">
+                        @Html.HiddenFor(x => item.Id)
+                        @Html.HiddenFor(x => item.Name)
+                       @*@Html.CheckBoxFor(x=> item.IsChecked)*@
+
+                      @Html.DisplayFor(x => item.Name)
+
+                        <br />
+                    }
+                }
+
+            </div>
+        </div>
+
+
+        <div>
+            <input type="submit" class="btn btn-primary" value="Assign" />
+        </div>
+
+            }
+        </div>
+    </div>
+</div>

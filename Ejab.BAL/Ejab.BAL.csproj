@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3B0AEA13-71E1-48E7-B9E3-A3FA8B934986}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ejab.BAL</RootNamespace>
+    <AssemblyName>Ejab.BAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Ejab.UI\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Channels" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http">
+      <HintPath>..\..\..\..\..\Ejab\Source Code\Ejab\Ejab.Presentation\bin\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\DeviceType.cs" />
+    <Compile Include="Common\HttpRequestMessageExtensions.cs" />
+    <Compile Include="Common\ImageHelper.cs" />
+    <Compile Include="Common\ModelFactory.cs" />
+    <Compile Include="Common\NotificationType.cs" />
+    <Compile Include="Common\PagingConfig.cs" />
+    <Compile Include="Common\SortParameterList .cs" />
+    <Compile Include="Common\Time.cs" />
+    <Compile Include="CustomDTO\TokenDTO.cs" />
+    <Compile Include="Helpers\PushNotification.cs" />
+    <Compile Include="Helpers\PushNotification2.cs" />
+    <Compile Include="Helpers\ServerHelper.cs" />
+    <Compile Include="Helpers\SmsMessaging.cs" />
+    <Compile Include="ModelViews\AboutApplication\AboutAppViewModel.cs" />
+    <Compile Include="ModelViews\AboutUs\AboutUsViewModel.cs" />
+    <Compile Include="ModelViews\AcceptofferViewModel.cs" />
+    <Compile Include="ModelViews\AcceptUserviewModel.cs" />
+    <Compile Include="ModelViews\AdminLogin.cs" />
+    <Compile Include="ModelViews\AdminviewModel.cs" />
+    <Compile Include="ModelViews\AllMessagesViewModel.cs" />
+    <Compile Include="ModelViews\ChangePassWordModel.cs" />
+    <Compile Include="ModelViews\chartViewModel.cs" />
+    <Compile Include="ModelViews\CommonQuestions\Commonquestionsviewmodel.cs" />
+    <Compile Include="ModelViews\CommonQuestions\SettingViewModel.cs" />
+    <Compile Include="ModelViews\CustomerDetailesviewModelcs.cs" />
+    <Compile Include="ModelViews\DeleteInterestViewModel.cs" />
+    <Compile Include="ModelViews\DeviceVewModel.cs" />
+    <Compile Include="ModelViews\EditUserImageViewModel.cs" />
+    <Compile Include="ModelViews\EditUserMobileViewModel.cs" />
+    <Compile Include="ModelViews\Email\EmailSubscriptionViewModel.cs" />
+    <Compile Include="ModelViews\FaceBookLoginViewModel.cs" />
+    <Compile Include="ModelViews\InterestViewModel.cs" />
+    <Compile Include="ModelViews\LastMessageViewModel.cs" />
+    <Compile Include="ModelViews\LogDTO.cs" />
+    <Compile Include="ModelViews\LoginViewModel.cs" />
+    <Compile Include="ModelViews\LogOutViewModel.cs" />
+    <Compile Include="ModelViews\MessageModelView.cs" />
+    <Compile Include="ModelViews\MessagesFromAdmin.cs" />
+    <Compile Include="ModelViews\MessageTypeModelView.cs" />
+    <Compile Include="ModelViews\NotificationBodyViewModel.cs" />
+    <Compile Include="ModelViews\Notification\NotificationModel.cs" />
+    <Compile Include="ModelViews\Notification\NotificationViewModel.cs" />
+    <Compile Include="ModelViews\RefershTokenViewModel.cs" />
+    <Compile Include="ModelViews\ReportSeach.items.cs" />
+    <Compile Include="ModelViews\Reports\ComplaintViewModel.cs" />
+    <Compile Include="ModelViews\Reports\CustomerDTO.cs" />
+    <Compile Include="ModelViews\Reports\NamesDTO.cs" />
+    <Compile Include="ModelViews\Reports\OfferViewModel.cs" />
+    <Compile Include="ModelViews\Reports\PropsalesViewModel.cs" />
+    <Compile Include="ModelViews\Reports\RequestViewModel.cs" />
+    <Compile Include="ModelViews\Reports\TruckDTO.cs" />
+    <Compile Include="ModelViews\Reports\UserDTO.cs" />
+    <Compile Include="ModelViews\SettingViewModel.cs" />
+    <Compile Include="ModelViews\SmsMessage\SmsViewModel.cs" />
+    <Compile Include="ModelViews\SmsMessage\ValidateMobileViwModel.cs" />
+    <Compile Include="ModelViews\UserViewModelFromAdmin.cs" />
+    <Compile Include="Resources\Global.ar-EG.Designer.cs">
+      <DependentUpon>Global.ar-EG.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Global.ar-SA.Designer.cs">
+      <DependentUpon>Global.ar-SA.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Global.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Global.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AboutApp\AboutAppService.cs" />
+    <Compile Include="Services\AboutApp\IAboutAppService.cs" />
+    <Compile Include="Services\AboutUs\AboutUsService.cs" />
+    <Compile Include="Services\AboutUs\IAboutUs.cs" />
+    <Compile Include="Services\DeviceService.cs" />
+    <Compile Include="Services\IDevicesInterface.cs" />
+    <Compile Include="Services\Isettingcs.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\Notification\INotificationService.cs" />
+    <Compile Include="Services\Notification\NotificationService.cs" />
+    <Compile Include="ModelViews\OfferDetailViewModel.cs" />
+    <Compile Include="ModelViews\OfferImagesViewModel.cs" />
+    <Compile Include="ModelViews\OfferSerachViewModel.cs" />
+    <Compile Include="ModelViews\OfferViewModel.cs" />
+    <Compile Include="ModelViews\ProposalPriceModelView.cs" />
+    <Compile Include="ModelViews\ProposalPriceModelViewDetails.cs" />
+    <Compile Include="ModelViews\RecoveryPasswordModel.cs" />
+    <Compile Include="ModelViews\RegionModelView.cs" />
+    <Compile Include="ModelViews\RegisterViewModel.cs" />
+    <Compile Include="ModelViews\RequestDetailesPricesViewModel.cs" />
+    <Compile Include="ModelViews\RequestDetailsModelView.cs" />
+    <Compile Include="ModelViews\RequestModelView.cs" />
+    <Compile Include="ModelViews\RequestWithProposalViewModel.cs" />
+    <Compile Include="ModelViews\ResetPasswordViewModel.cs" />
+    <Compile Include="ModelViews\RuleViewModel.cs" />
+    <Compile Include="ModelViews\ServiceProviderDetailesViewModel.cs" />
+    <Compile Include="ModelViews\ServiceProviderRatingViewModel.cs" />
+    <Compile Include="ModelViews\ServiceTypeViewModel.cs" />
+    <Compile Include="ModelViews\SortingParamsViewModer.cs" />
+    <Compile Include="ModelViews\Statictics\StaticticsViewModel.cs" />
+    <Compile Include="ModelViews\SuggestionsComplaintModelView.cs" />
+    <Compile Include="ModelViews\TrucksViewModel.cs" />
+    <Compile Include="ModelViews\TruckTypeViewModel.cs" />
+    <Compile Include="ModelViews\UpdateRequestStateViewModel.cs" />
+    <Compile Include="ModelViews\UserInterestsViewModel.cs" />
+    <Compile Include="ModelViews\UserViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reository\GenericRepository.cs" />
+    <Compile Include="Reository\IGenericRepository.cs" />
+    <Compile Include="Services\ComplaintService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\Emailes\EmaileService.cs" />
+    <Compile Include="Services\Emailes\IEmaileService.cs" />
+    <Compile Include="Services\IComplaintService.cs" />
+    <Compile Include="Services\ICustomerService.cs" />
+    <Compile Include="Services\IIntersetService.cs" />
+    <Compile Include="Services\IMessage.cs" />
+    <Compile Include="Services\Interestservice.cs" />
+    <Compile Include="Services\IOfferService.cs" />
+    <Compile Include="Services\IRegionService.cs" />
+    <Compile Include="Services\IRequestService.cs" />
+    <Compile Include="Services\IRuleService.cs" />
+    <Compile Include="Services\IServiceType.cs" />
+    <Compile Include="Services\ITruckService.cs" />
+    <Compile Include="Services\ITruckTypeService.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\OfferService.cs" />
+    <Compile Include="Services\Questions\IQuestionService.cs" />
+    <Compile Include="Services\Questions\QuestionService.cs" />
+    <Compile Include="Services\RegionService.cs" />
+    <Compile Include="Services\Reports\IReportService.cs" />
+    <Compile Include="Services\Reports\ReportService.cs" />
+    <Compile Include="Services\RequestService.cs" />
+    <Compile Include="Services\RuleService.cs" />
+    <Compile Include="Services\ServiceTypeService.cs" />
+    <Compile Include="Services\SettingService.cs" />
+    <Compile Include="Services\SMS\ISmsService.cs" />
+    <Compile Include="Services\SMS\SmsService.cs" />
+    <Compile Include="Services\statistics\IstatisticsService.cs" />
+    <Compile Include="Services\statistics\statisticsService.cs" />
+    <Compile Include="Services\TruckService.cs" />
+    <Compile Include="Services\TruckTypeServicecs.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="Utility\Utility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ejab.DAl\Ejab.DAl.csproj">
+      <Project>{68bd8a0f-c523-4f7f-892d-83bca7369ead}</Project>
+      <Name>Ejab.DAl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Global.ar-EG.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Global.ar-EG.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Global.ar-SA.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Global.ar-SA.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Global.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Global.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

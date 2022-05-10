@@ -1,0 +1,181 @@
+﻿@model Ejab.BAL.ModelViews.TruckTypeViewModel
+
+@{
+    ViewBag.Title = "EditType";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>@Resources.Global.TruckType </h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home  </a>
+                </li>
+                <li>
+                    <a href="/TruckType/Index/">@Resources.Global.TruckType  </a>
+                </li>
+                <li>
+                    @Resources.Global.Edit 
+                </li>
+            </ol>
+        </div>
+    </div>
+    @*<div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>@Resources.Global.New  </h5>
+                            </div>
+                            <div class="ibox-content">
+                                @using (Html.BeginForm("EditType", "TruckType", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true)
+
+                                    <div class="col col-sm-12 loginss ">
+                                        <div class="form-group ">
+                                            <label class="col-sm-2 control-label">@Resources.Global.TruckName  </label>
+                                            <div class="col-sm-10">
+                                                    <div class="input-group m-b ">
+                                                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = " الاسم بالعربيه", maxlength = "50" })
+                                                        @Html.ValidationMessageFor(x => x.Name)
+                                                        <span class="input-group-addon" id="spfirst">50</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">@Resources.Global.TruckTypeNameEng  </label>
+                                            <div class="col-sm-10">
+
+                                                <div class="input-group m-b">
+                                                    @Html.TextBoxFor(x => x.NameEng, new { @class = "form-control", placeholder = " الاسم بالانجليزيه", maxlength = "50" })
+                                                    @Html.ValidationMessageFor(x => x.NameEng)
+                                                    <span class="input-group-addon">50</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="form-group col-xs-12 text-center">
+                                                <input type="submit" value="Save" class="btn btn-primary " />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+                                <div class=" ">
+                                    <div class="row">
+                                        @using (Html.BeginForm("EditType", "TruckType", FormMethod.Post))
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-12 loginss">
+                                                    @Html.AntiForgeryToken()
+                                                    @Html.ValidationSummary(true)
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">@Resources.Global.TruckName  </label>
+
+                                                        <div class="col-sm-10">
+                                                            <div class=" m-b ">
+
+                                                                @Html.TextBoxFor(x => x.NameArb, new { @class = "form-control" })
+                                                            </div>
+                                                            @Html.ValidationMessageFor(x => x.NameArb)
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">@Resources.Global.TruckTypeNameEng  </label>
+
+                                                        <div class="col-sm-10">
+                                                            <div class=" m-b ">
+
+                                                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                                                            </div>
+                                                            @Html.ValidationMessageFor(x => x.Name)
+
+
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="form-group">
+                                                            <label class="col-lg-2 control-label">Parent </label>
+
+                                                            @Html.DropDownListFor(x => x.ParanetId, ViewBag.Regions as SelectList, new { @class = "form-control" })
+                                                        </div>*@
+                                                    <div class="col-lg-offset-2 col-lg-10">
+                                                        <div class="form-group">
+                                                            <input type="submit" value=@Resources.Global.Save class="btn btn-primary demo3" />
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="footer text-center">
+        <p>@Resources.Global.footer </p>
+    </div>
+</div>
+
+
+
+
+
+
+   
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+

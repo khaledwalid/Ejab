@@ -1,0 +1,209 @@
+﻿@model Ejab.BAL.ModelViews.AdminviewModel
+
+@{
+    ViewBag.Title = "CreateAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>@Resources.Global.Admins</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home  </a>
+                </li>
+                <li>
+                    <a href="/Customer/Index/">@Resources.Global.Admins </a>
+                </li>
+                <li>
+                    @Resources.Global.New
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content ">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>@Resources.Global.New  </h5>
+                            </div>
+                            <div class="ibox-content loginss">
+
+                                @using (Html.BeginForm("CreateAdmin", "Customer", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true)
+                                    <div class="col col-sm-12  loginss">
+                                        <div class="form-group ">
+                                            <label class="col-sm-2 control-label">@Resources.Global.FirstName </label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group m-b ">
+                                                    @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", id = "txtFirstName", placeholder = @Resources.Global.FirstName, maxlength = "50" })
+
+                                                    <span class="input-group-addon" id="spfirst">50</span>
+                                                </div>
+                                                @Html.ValidationMessageFor(x => x.FirstName)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">@Resources.Global.LastName </label>
+                                            <div class="col-sm-10">
+
+                                                <div class="input-group m-b">
+                                                    @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", id = "txtLastName", placeholder = @Resources.Global.LastName, maxlength = "50" })
+
+                                                    <span class="input-group-addon">50</span>
+                                                </div>
+                                                @Html.ValidationMessageFor(x => x.LastName)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">@Resources.Global.Mobile </label>
+                                            <div class="col-sm-10">
+
+                                                <div class="input-group m-b">
+                                                    @Html.TextBoxFor(x => x.Mobile, new { @class = "form-control", id = "txtMobile", placeholder = @Resources.Global.Mobile, onkeypress = "return isNumberKey(event)" })
+
+                                                    <span class="input-group-addon">14</span>
+                                                </div>
+                                                @Html.ValidationMessageFor(x => x.Mobile)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group ">
+                                            <label class="col-sm-2 control-label">@Resources.Global.Email</label>
+                                            <div class="col-sm-10">
+
+                                                <div class="input-group m-b">
+                                                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "txtEmail", placeholder = @Resources.Global.Email, maxlength = "100" })
+
+                                                    <span class="input-group-addon">100</span>
+                                                </div>
+                                                @Html.ValidationMessageFor(x => x.Email)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">@Resources.Global.Password  </label>
+                                            <div class="col-sm-10">
+
+                                                <div class="input-group m-b">
+                                                    @Html.PasswordFor(x => x.Password, new { @class = "form-control", id = "txtPassword", placeholder = @Resources.Global.Password, maxlength = "50", required = "required" })
+
+                                                    <span class="input-group-addon">50</span>
+                                                    @Html.ValidationMessageFor(x => x.Password)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class="col-sm-2 control-label">@Resources.Global.ProfileImgPath </label>
+                                            <div class="col-sm-10">
+
+                                                <div class=" m-b">
+                                                    <input type="file" name="file" class="form-control" id="Profileupload" onchange="ImagePreview(this);" />
+                                                    <img alt="ImagePreview" id="ImgPreview" class="img_2 " src=@Model.ProfileImgPath />
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="form-group theClass ">
+
+                                            <label class="col-sm-2 control-label">@Resources.Global.Rules  </label>
+                                            <div class="col-sm-10">
+
+                                                <div class="form-group">
+
+                                                    <div class=" col-sm-10">
+                                                        <label class="checkbox-inline">
+                                                            @*<input type="checkbox"  name="allRules" id="allRules" checked="">*@
+                                                            @Html.CheckBox("chkAll", false, new { id = "chkAll" })
+                                                            @Resources.Global.AllRules
+                                                        </label>
+
+                                                    </div>
+                                                </div>
+                                                <div class=" row col-sm-10">
+                                                    <div class=" row">
+                                                        @if (Request.Cookies["language"] == null)
+                                                        {
+                                                            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ar-EG");
+                                                            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ar-EG");
+                                                        }
+                                                        @if (Model.Rules != null)
+                                                        {
+
+                                                            foreach (var item in Model.Rules)
+                                                            {
+                                                                    var lang = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+                                                                  
+                                                                    if (lang == "ar-EG")
+                                                                    {
+
+                                                                    <div class="col-md-4 checkList">
+                                                                        <input type="checkbox" id="selectedObjects" name="selectedObjects" value="@item.Id">
+                                                                        @Html.HiddenFor(x => item.Id)
+                                                                        @Html.HiddenFor(x => item.Description)
+
+                                                                        @*@Html.CheckBoxFor(x=> item.IsChecked)*@
+                                                                        <span class="disp">
+                                                                            @Html.DisplayFor(x => item.Description)
+                                                                        </span>
+                                                                    </div>
+                                                                }
+                                                                if (lang == "en-US")
+                                                                {
+                                                                    <div class="col-md-4 checkList">
+                                                                        <input type="checkbox" name="selectedObjects" value="@item.Id">
+                                                                        @Html.HiddenFor(x => item.Id)
+                                                                        @Html.HiddenFor(x => item.DescriptionEng)
+
+                                                                        @*@Html.CheckBoxFor(x=> item.IsChecked)*@
+
+                                                                        @Html.DisplayFor(x => item.DescriptionEng)
+
+                                                                    </div>
+                                                                    }
+                                                               
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 
+                                    if (@ViewBag.MailExist != null)
+                                    {
+                                        <span class="alert alert text-danger">@Resources.Global.EmailIsExist</span>
+                                    }
+                                    if (@ViewBag.message != null)
+                                    {
+                                        <span class="alert alert text-danger ">@Resources.Global.InterRules</span>
+                                   }
+                                   
+
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 text-center">
+                                            <button class="btn btn-primary buttt" type="submit"> @Resources.Global.Save  </button>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

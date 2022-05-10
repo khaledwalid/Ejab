@@ -1,0 +1,190 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Ejab.BAL.ModelViews.RegionModelView>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.Regions  </h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home  </a>
+                </li>
+                <li>
+                    @Resources.Global.Regions 
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group jobss">
+                                            <h5>
+                                                @Resources.Global.Regions 
+                                                <span>
+                                                    @ViewBag.totalCount
+                                                </span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 ">
+                                        <div class="form-group">
+
+                                            @using (Html.BeginForm("Index", "Region", FormMethod.Get, new { id="regionfrm"}))
+                                            {
+
+                                                <div class="input-group m-b">
+                                                    
+                                                    <input type="text" name="search" id="search" placeholder=@Resources.Global.Search class="form-control">
+                                                    <span class="input-group-btn">
+                                                        <button type="submit" class="btn btn-primary  ">@Resources.Global.Search</button>
+                                                    </span>
+                                                </div>
+
+
+
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3 text-left">
+                                        <div class="form-group">
+
+                                            @Html.ActionLink(Resources.Global.New, "AddRegion", "Region", null, new { @class = "colore btns-add" })
+                                        </div>
+                                       
+
+                                    </div>
+                                </div>
+
+                                <!--  -->
+                                <!--  -->
+
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>@Resources.Global.Code </th>
+                                                    <th >@Resources.Global.RegionName </th>
+
+                                                    <th style="width:15%"> </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Id</td>
+                                                        <td>@item.Name</td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                @Html.ActionLink(Resources.Global.Edit, "EditRegion", "Region", new { id = @item.Id }, new { @class = "btn btn-outline btn-primary"})
+                                                                @*@Html.ActionLink(Resources.Global.Delete, "DeleteRegion", "Region", new { id = @item.Id }, new { @class = "btn btn-outline btn-danger demo3" })*@
+                                                                <button class= "btn btn-outline btn-danger demo3"  data-id="@item.Id">@Resources.Global.Delete </button>
+                                                                </div>
+</td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-12 text-center">
+                                        <nav aria-label="Page navigation">
+                                            @Html.PagedListPager(Model, Page => Url.Action("Index", "Region", new { Page, search = Request.QueryString["search"] }))
+                                        </nav>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="footer text-center">
+            <p>@Resources.Global.footer  </p>
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        var foo = getParameterByName('search'); // "lorem"
+        var nametext = document.getElementById('search');
+        nametext.value = foo;
+        $('.demo3').click(function () {
+            debugger;
+            var id=$(this).attr('data-id');
+
+            swal({
+                title: '@Resources.Global.SureToDelete ',//,
+                    text: '@Resources.Global.MessageTitle ',
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: '@Resources.Global.Dialogconfirm',
+                cancelButtonText: '@Resources.Global.CancelDeleting',
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                $.get('/Region/DeleteRegion?id=' + id, function () {
+                                    swal("Deleted!", '@Resources.Global.SuccessfullyDeleted', "success");
+                                    window.location.reload();
+                                                });
+
+                            } else {
+                                swal("Cancelled","@Resources.Global.YourFileSafe:)", "error");
+                            }
+                        });
+        });
+
+
+    });
+</script>
+
+}

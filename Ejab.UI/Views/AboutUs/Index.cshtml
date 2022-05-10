@@ -1,0 +1,166 @@
+﻿@model Ejab.BAL.ModelViews.AboutUs.AboutUsViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2>@Resources.Global.ContactUs</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home </a>
+                </li>
+                <li>
+                   @Resources.Global.ContactUs
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                      
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                    </div>
+                                    @*<div class="col-sm-6 text-left">
+                                        <div class="form-group">
+                                           
+                                            @Html.ActionLink(@Resources.Global.New, "AddAboutUs", "AboutUs", new  { @class = "colore btns-add" })
+                                        </div>
+                                    </div>*@
+                                </div>
+
+                                <!--  -->
+                                <!--  -->
+
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>@Resources.Global.Region  </th>
+                                                    @*<th>@Resources.Global.PostalCode </th>*@
+                                                    <th >@Resources.Global.Address </th>
+                                                    @*<th>@Resources.Global.AddressLongitude </th>
+                                                    <th>@Resources.Global.AdressLatitude </th>*@
+                                                    <th>@Resources.Global.Phone </th>
+                                                    @*<th>@Resources.Global.Fax </th>*@
+                                                    <th>@Resources.Global.Email </th>
+                                                    <th> </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                               
+
+                                                    <tr>
+                                                        <td>@Model.Region  </td>
+                                                        @*<td>@Model.PostalCode  </td>*@
+                                                        <td>@Model.Address </td>
+                                                        @*<td>@Model.Longitude </td>
+                                                        <td>@Model.latitude  </td>*@
+                                                        <td>@Model.phone </td>
+                                                        @*<td>@Model.fax  </td>*@
+                                                        <td>@Model.Email   </td>
+
+                                                       
+
+
+                                                        <td >
+                                                            <div class="btn-group">
+                                                               
+                                                                @Html.ActionLink(@Resources.Global.Edit, "EditAboutUs", "AboutUs", new { id = @Model.Id }, new { @class = "btn btn-outline btn-primary" })
+                                                              
+
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                               
+                                            </tbody>
+
+
+
+                                        </table>
+                                    </div>
+                               
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="footer text-center">
+            <p>@Resources.Global.footer  </p>
+        </div>
+    </div>
+
+  </div>
+
+
+@section scripts{
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.demo3').click(function () {
+            debugger;
+            var id=$(this).attr('data-id');
+
+            swal({
+                title: '@Resources.Global.SureToDelete ',//,
+                    text: '@Resources.Global.MessageTitle ',
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: '@Resources.Global.Dialogconfirm',
+                closeOnConfirm: false
+            },
+
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                $.get('/AboutUs/DeleteAboutUs?id=' + id, function () {
+                                    swal("Deleted!", @Resources.Global.SuccessfullyDeleted, "success");
+                                    window.location.reload();
+                                                });
+
+                            }
+
+
+                        });
+        });
+
+
+    });
+    </script>
+
+}
+
+
+
+

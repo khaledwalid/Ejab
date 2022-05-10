@@ -1,0 +1,163 @@
+﻿@model Ejab.BAL.ModelViews.AboutApplication.AboutAppViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.AboutApp </h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home   </a>
+                </li>
+                <li>
+                    @Resources.Global.AboutApp
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+
+                                <!--  -->
+                                <!--  -->
+
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-sm-2">@Resources.Global.AboutAppArb </th>
+                                                    <th class="col-sm-2" >@Resources.Global.AboutAppEng </th>
+                                                    <th  class="col-sm-2">@Resources.Global.AppLink </th>
+                                                    <th  class="col-sm-2">@Resources.Global.FaceBookLink </th>
+                                                    <th class="col-sm-2">@Resources.Global.TwitterLink </th>
+                                                    <th class="col-sm-2" > </th>
+                                                 </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="col-sm-2">@Model.AboutApp</td>
+                                                    <td class="col-sm-2">@Model.AboutAppEng</td>
+                                                    <td class="col-sm-2"><a href="@Model.AppLink">@Model.AppLink</a></td>
+                                                    <td class="col-sm-2"><a href="@Model.FaceBookLink">@Model.FaceBookLink</a>            </td>
+                                                    <td class="col-sm-2"><a href="@Model.TwitterLink">@Model.TwitterLink</a>  </td>
+                                                    <td class="col-sm-2">
+                                                        <div class="btn-group">
+                                                            @Html.ActionLink(@Resources.Global.Edit, "EditAboutApp", "AboutApp", new { id = @Model.Id }, new { @class = "btn btn-outline btn-primary" })
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+
+
+                                        </table>
+                                    </div> 
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="footer text-center">
+        <p>@Resources.Global.footer  </p>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@section scripts{
+        <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.demo3').click(function () {
+            debugger;
+            var id=$(this).attr('data-id');
+
+            swal({
+                title: 'are you sure',//@Resources.Global.CheckDeleting,
+                text: 'are you sure',//@Resources.Global.DeletetingMessage,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                $.get('/AboutApp/DeleteAboutApp?id=' + id, function () {
+                                    swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                                    window.location.reload();
+                                                });
+
+                            } else {
+                                $.get('/AboutApp/Index/', function (data) {
+                                    swal("Cancelled", "Your imaginary file is safe :)", "Cancel");
+                                });
+
+
+                            }
+                        });
+        });
+
+
+    });
+        </script>
+
+    }*@
+
+
+
+
+
+
+
+
+
+
+

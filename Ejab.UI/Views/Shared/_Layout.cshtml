@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="naqelatsa">
+    <meta name="keywords" content="Trucks">
+    <meta name="author" content="Equipments">
+    <meta name="description" content="ناقلات">
+    <meta name="keywords" content="شاحنات">
+    <meta name="author" content="معدات">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--First Mobile Meta-->
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Naqelat</title>
+    <link rel="stylesheet" href="~/Content/css/bootstrap.rtl.css">
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/css/animate.css">
+    <link rel="stylesheet" href="~/Content/css/hover.css">
+    <link rel="stylesheet" href="~/Content/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/Content/css/owl.theme.css">
+    <link rel="icon" href="~/Content/images/favicon.ico" />
+    <link rel="stylesheet" href="~/Content/css/sweetalert.css">
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <link rel="stylesheet" href="~/Content/css/responsive.css">
+ @*@Styles.Render("~/Content/css")*@
+    <!--[If It IE 9]>
+        <script src="js/html5shiv.min.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+
+
+</head>
+
+
+<body>
+  
+
+    @RenderBody()
+   <script src="~/Scripts/js/jquery.js"></script>
+    <script src="~/Scripts/js/sweetalert.min.js"></script>
+   <script src="~/Scripts/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/js/owl.carousel.js"></script>
+    <script src="~/Scripts/js/wow.js"></script>
+    <script src="~/Scripts/js/html5lightbox.js"></script>
+    <script src="~/Scripts/js/numscroller-1.0.js"></script>
+    <script src="~/Scripts/js/function.js"></script>
+    <script src="~/Scripts/Home.js"></script>
+
+@*@Scripts.Render("~/Scripts/jquery")
+    @Scripts.Render("~/Scripts/bootstrao")
+    @Scripts.Render("~/bundles/Caresol")
+    @Scripts.Render("~/bundles/WOw")
+    @Scripts.Render("~/bundles/html5lightbox")  
+    @Scripts.Render("~/bundles/numscroller")
+    @Scripts.Render("~/bundles/function")*@
+    @RenderSection("scripts", false)
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+﻿@model Ejab.BAL.ModelViews.AboutUs.AboutUsViewModel
+
+@{
+    ViewBag.Title = "AddAboutUs";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>@Resources.Global.ContactUs </h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home  </a>
+                </li>
+                <li>
+                    @Resources.Global.ContactUs
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5> @Resources.Global.AddContactUs </h5>
+
+                            </div>
+                            <div>
+
+                            </div>
+                            <div class="ibox-content">
+                                @using (Html.BeginForm("AddAboutUs", "AboutUs", FormMethod.Post, new { @class = "form-horizontal" }))
+                                {
+
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true)
+
+                                    <div class="form-group">
+
+                                        @*<iframe width="100%" height="450" frameborder="0" style="border: 0" allowfullscreen>*@
+                                        <div id="map_canvas" style="width: 100%; height: 456px; border: 0">
+                                            my google map
+                                        </div>
+                                        @*</iframe>*@
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">@Resources.Global.Address</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group m-b">
+                                                @Html.TextBoxFor(x => x.Address, new { @class = "form-control" ,id="address"})
+                                                @Html.ValidationMessageFor(x => x.Address, "*", new { @class = "text-danger" })
+                                                <span class="input-group-addon">200</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">@Resources.Global.AdressLatitude </label>
+                                        <div class="col-sm-10">
+
+                                            <div class="input-group m-b">
+                                                @Html.TextBoxFor(x => x.latitude, new { @class = "form-control",id= "lat" })
+                                                @Html.ValidationMessageFor(x => x.latitude, "*", new { @class = "text-danger" })
+                                                <span class="input-group-addon">50</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">@Resources.Global.AddressLongitude </label>
+                                        <div class="col-sm-10">
+
+                                            <div class="input-group m-b">
+                                                @Html.TextBoxFor(x => x.Longitude, new { @class = "form-control" ,id= "lon" })
+                                                @Html.ValidationMessageFor(x => x.Longitude, "*", new { @class = "text-danger" })
+                                                <span class="input-group-addon">50</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">@Resources.Global.Phone </label>
+                                        <div class="col-sm-10">
+
+                                            <div class="input-group m-b">
+                                                @Html.TextBoxFor(x => x.phone, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.phone, "*", new { @class = "text-danger" })
+                                                <span class="input-group-addon">14</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">@Resources.Global.Email</label>
+                                        <div class="col-sm-10">
+
+                                            <div class="input-group m-b">
+                                                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", type = "email" })
+                                                @Html.ValidationMessageFor(x => x.Email, "*", new { @class = "text-danger" })
+                                                <span class="input-group-addon">100</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">@Resources.Global.Fax</label>
+                                        <div class="col-sm-10">
+
+                                            <div class="input-group m-b">
+                                                @Html.TextBoxFor(x => x.fax, new { @class = "form-control" })
+                                                @*@Html.ValidationMessageFor(x => x.fax , "*", new { @class = "text-danger" })*@
+                                                <span class="input-group-addon">50</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-lg-offset-2 col-lg-10">
+                                            <button class="btn btn-primary buttt" type="submit" id="btnSave">@Resources.Global.Save </button>
+                                            @Html.ActionLink(@Resources.Global.Back, "Index", "AboutUs", new { @class = "btn btn - default  buttt" })
+                                        </div>
+                                    </div>
+
+
+                                }
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Shared/_Footer.cshtml")
+</div>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVpB61Tp2RtLMojG93kzgC9MyX4wLm_8o&callback=initMap">
+</script>
+
+<script type="text/javascript">
+    function initMap() {
+        google.maps.visualRefresh = true;
+          var mapOptions = {
+            center: new google.maps.LatLng(24.774265 , 46.738586 ),
+            zoom: 8,
+            //,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+          mapOptions);
+        // create a marker
+        var latlng = new google.maps.LatLng(24.774265,46.738586 );
+        var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title: 'Latitude: ' + latlng.Ya + ' Longitude :' + latlng.Za,
+            draggable: true
+        });
+        //infoWindow = new google.maps.InfoWindow({
+        //    content: ""
+        //});
+        infoWindow.open(map, marker);
+        geocoder = new google.maps.Geocoder();
+        //Update postal address when the marker is dragged
+        google.maps.event.addListener(map, "click", function (event) {
+            // get lat/lon of click
+            var clickLat = event.latLng.lat();
+            var clickLon = event.latLng.lng();
+            var add=event.
+
+            // show in input box
+            document.getElementById("lat").value = clickLat.toFixed(5);
+            document.getElementById("lon").value = clickLon.toFixed(5);
+            document.getElementById("address").value = clickLon.toFixed(5);
+
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(clickLat, clickLon),
+                map: map
+            });
+        });
+        // Close the marker window when being dragged
+        google.maps.event.addListener(marker, 'dragstart', function () {
+            infoWindow.close(map, marker);
+        });
+    }
+</script>
+
+
+
+
+
+
+
+

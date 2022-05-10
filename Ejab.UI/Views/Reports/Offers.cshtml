@@ -1,0 +1,174 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model  IPagedList<Ejab.BAL.ModelViews.Reports.OfferViewModel>
+@{
+    ViewBag.Title = "Offers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.Reports</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home  </a>
+                </li>
+                <li>
+                    @Resources.Global.Reports
+                </li>
+                <li>
+                    @Resources.Global.Offers
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+    <div class="row" style="background-color:white">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            @*<div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group jobss">
+                                            <h3>
+                                                @Resources.Global.Offers
+                                            </h3>
+                                        </div>
+
+                                    </div>
+                                </div>*@
+                            <div class="ibox-content">
+
+
+
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        @using (Html.BeginForm("Offers", "Reports", FormMethod.Get))
+                                        {
+
+                                            <div class="form-group row ">
+                                                <label class="col-sm-2 col-form-label">     @Resources.Global.ServiceProvider </label>
+                                                <div class=" col-sm-6  ">
+                                                    @Html.DropDownList("Id", (IEnumerable<SelectListItem>)ViewBag.AllUsers, @Resources.Global.PleaseSelect, new { @class = "form-control m-b chosen-select" })
+                                                </div>
+
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="text-center">
+                                                    <button type="submit" class="btn btn-primary  ">@Resources.Global.Search</button>
+                                                    <button type="button" class="btn btn-success  " id="btnExToPDF" onclick="location.href='@Url.Action("DownloadOfferViewPDF", "Reports", new { })'">@Resources.Global.ExportToPdf</button>
+                                                    <button type="button" class="btn btn-success  " id="btnExToExcel" onclick="location.href='@Url.Action("ExportOfferData", "Reports", new { })'">@Resources.Global.ExportToExcel</button>
+
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <br />
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>@Resources.Global.OfferNumber  </th>
+                                                    <th>@Resources.Global.Date  </th>
+                                                    <th>@Resources.Global.ServiceProvider  </th>
+                                                    <th>@Resources.Global.Price @Resources.Global.CurrencySymoble   </th>
+                                                    <th>@Resources.Global.Title  </th>
+                                                    <th>@Resources.Global.Description  </th>
+                                                    <th>@Resources.Global.RegionName  </th>
+                                                    <th>@Resources.Global.quantity  </th>
+                                                    <th>@Resources.Global.Period  </th>
+                                                    <th>@Resources.Global.OfferState  </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model == null || Model.Count() == 0)
+                                                {
+                                                    <tr class="text-center text-danger"><td colspan="6">@Resources.Global.NoData</td></tr>
+                                                }
+
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@item.OfferNumber  </td>
+                                                        <td>@item.OfferDate.ToShortDateString()  </td>
+                                                        <td>@item.ServiceProvider  </td>
+                                                        <td>   @String.Format("{0:n0}", @item.Price)
+                                                        <td>@item.Title   </td>
+                                                        <td>@item.Description</td>
+                                                        <td>@item.RegionName</td>
+                                                        <td>@item.quantity      </td>
+                                                        <td>@item.Period     </td>
+                                                        <td>
+                                                            @if (@item.OfferState.ToString() == "Accepted")
+                                                            {  <span class="btn btn-primary btn">@Resources.Global.Accepted</span>}
+                                                            @if (@item.OfferState.ToString() == "Done")
+                                                            {  <span class="btn btn-success btn">@Resources.Global.Done </span>}
+                                                            @if (@item.OfferState.ToString() == "Rejected")
+                                                            {  <span class="btn btn-default btn" style="background-color:dimgray">@Resources.Global.Rejected </span>}
+                                                        </td>
+                                                    </tr>
+
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-12 text-center">
+                                        <nav aria-label="Page navigation">
+                                            @Html.PagedListPager(Model, Page => Url.Action("Offers", "Reports", new { Page, Id = Request.QueryString["Id"] }))
+                                        </nav>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    @Html.Partial("~/Views/Shared/_Footer.cshtml")
+</div>
+<script>
+    $(document).ready(function () {
+
+        if (@Model.Count()==0) {
+
+            $('#btnExToExcel').attr('disabled', 'disabled');
+            $('#btnExToPDF').attr('disabled', 'disabled');
+        }
+        if (@Model.Count()>0) {
+            $('#btnExToExcel').removeAttr('disabled');
+            $('#btnExToPDF').removeAttr('disabled');
+        }
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        var foo = getParameterByName('Id'); // "lorem"
+        var nametext=document.getElementById('Id');
+        nametext.value=foo;
+        $('#Id').attr('title', '@Resources.Global.SelectFromList'');
+    })
+</script>
+

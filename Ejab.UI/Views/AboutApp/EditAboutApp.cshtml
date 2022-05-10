@@ -1,0 +1,124 @@
+﻿@model Ejab.BAL.ModelViews.AboutApplication.AboutAppViewModel
+
+@{
+    ViewBag.Title = "EditAboutApp";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>@Resources.Global.AboutApp </h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home   </a>
+                </li>
+                <li>
+                    @Resources.Global.AddAboutApp
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5> @Resources.Global.AddAboutApp </h5>
+
+                            </div>
+                            <div class="ibox-content loginss">
+                                @using (Html.BeginForm("EditAboutApp", "AboutApp", FormMethod.Post, new { @class = "form-horizontal" }))
+                                {
+
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true )
+
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">@Resources.Global.AboutAppArb </label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group m-b">
+                                                @Html.TextAreaFor(x => x.AboutApp, new { @class = "form-control", placeholder = @Resources.Global.AboutAppArb, max = "200", rows = "8" })
+
+                                                <span class="input-group-addon">200</span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.AboutApp)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">@Resources.Global.AboutAppEng </label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group m-b">
+                                                @Html.TextAreaFor(x => x.AboutAppEng, new { @class = "form-control", placeholder = @Resources.Global.AboutAppEng, max = "200", rows = "8" })
+
+                                                <span class="input-group-addon">200</span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.AboutAppEng)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">@Resources.Global.AppLink </label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group m-b">
+                                                @Html.TextBoxFor(x => x.AppLink, new { @class = "form-control", placeholder = @Resources.Global.AppLink, max = "200", type = "url" })
+
+                                                <span class="input-group-addon">200</span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.AppLink)
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">@Resources.Global.FaceBookLink  </label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group m-b">
+                                                @Html.TextBoxFor(x => x.FaceBookLink, new { @class = "form-control", placeholder = @Resources.Global.FaceBookLink,  max = "200", type = "url" })
+
+                                                <span class="input-group-addon">200</span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.FaceBookLink)
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">@Resources.Global.TwitterLink  </label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group m-b">
+                                                @Html.TextBoxFor(x => x.TwitterLink, new { @class = "form-control", placeholder = @Resources.Global.TwitterLink, max = "200", type = "url" })
+
+                                                <span class="input-group-addon">200</span>
+                                            </div>
+                                            @Html.ValidationMessageFor(x => x.TwitterLink, null)
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-offset-2 col-lg-10">
+                                            <button class="btn btn-primary buttt" type="submit" id="btnSave">@Resources.Global.Edit  </button>
+                                            @Html.ActionLink(Resources.Global.Back, "Index", "AboutApp", new { @class = "btn btn - default  buttt" })
+                                        </div>
+                                    </div>
+
+
+                                }
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   
+    @Html.Partial("~/Views/Shared/_Footer.cshtml")
+</div>
+
+

@@ -1,0 +1,338 @@
+﻿@using Ejab.BAL.ModelViews
+@model  IEnumerable<Ejab.BAL.ModelViews.TrucksViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.Trucks  </h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home   </a>
+                </li>
+                <li>
+                    @Resources.Global.Trucks
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+
+        <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">@Resources.Global.Close</span></button>
+                        <i class="fa fa-laptop modal-icon"></i>
+                        <h4 class="modal-title">@Resources.Global.New </h4>
+
+                    </div>
+
+
+                    <div id="modalWrapperadd" class="modal-body">
+                        
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">@Resources.Global.Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal inmodal" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">@Resources.Global.Close</span></button>
+                        <i class="fa fa-laptop modal-icon"></i>
+                        <h4 class="modal-title">@Resources.Global.Edit  </h4>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="modalWrapper">
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">@Resources.Global.Close </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    @*<div class="col-md-4">
+                            <div id="nestable-menu">
+                                <button type="button" data-action="expand-all" id="btnexpand" class="btn btn-white btn-sm">Expand All</button>
+                                <button type="button" data-action="collapse-all" id="btncollapse" class="btn btn-white btn-sm">Collapse All</button>
+                            </div>
+                        </div>*@
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+                                <div class="row ">
+                                    <div class="col col-sm-12">
+
+                                        <div class="dd forms" id="nestable2">
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="footer text-center">
+            <p>@Resources.Global.footer  </p>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        function buildList(data, isSub, type) {
+
+            var html = (isSub) ? '<div class="dd" id="nestable2"> ' : '  ';
+
+            html += '<ol class="dd-list">';
+
+
+            for (item in data) {
+                html += '<li class="dd-item truncks" data-id="' + data[item].Id + '">';
+
+                if (typeof (data[item].ChildModel) === 'object') { // An array will return 'object'
+
+                    if (isSub) {
+
+                        html +=
+                            '<div class="dd-handle row">' +
+
+                                '<div class="col-sm-6 col-md-8 main-class">' +
+
+                                    '<span class="btncollapse label label-warning"><i class="fa fa-minus"></i></span>'
+                                    + '<ul>'
+                                        +'<li>'+ '<img src="'+data[item].TruckImagePath+ '"   width="80px"  height="80px" alt="" />' +'</li>'
+
+                                        +'<li>' + data[item].Name
+                                        +'<span class="bold_sep">' + '|' + '</span>'
+                                        + '<li>' + data[item].NameArb + '</li>'
+                                    + '</ul>'
+                                + '</div>' // end col-sm-6
+
+                                + '<div class="col-sm-6 col-md-4 text-left">'
+                                    + '<button  class="fa fa-trash btn btn-white   demo3" id=' + data[item].Id + ' data-id=' + data[item].Id + ' >      </button>'
+                                    + '<button  class="fa fa-edit btn btn-white  " id=""btnEdit   data-id=' + data[item].Id + '  data-toggle="modal"  data-target="#myModal3" onclick="edittruck(' + data[item].Id + ');"  > </button>'
+                                    + '<button  class="fa fa-plus btn btn-white  " data-id=' + data[item].Id + ' id="btnadd"   data-toggle="modal"  data-target="#myModal2"  onclick="openTruck(' + data[item].Id + ',' + data[item].TruckTypeId + ',' + data[item].ParenetId + ');" >     </button>'
+                                + '</div>' // end col-sm-6
+                            + '</div>'
+                    } else {
+
+                        html += data[item].Name +'-'+ data[item].NameArb; // Submenu found, but top level list item.
+                    }
+                    html += buildList(data[item].ChildModel, true); // Submenu found. Calling recursively same method (and wrapping it in a div)
+                } else {
+                    html += data[item].Name +'-'+ data[item].NameArb
+                    // No submenu
+                }
+                html += '</li>';
+            }
+            html += '</ul>';
+            html += (isSub) ? '</div>' : '';
+            return html;
+        }
+
+
+        var trucksjson = @(Html.Raw(Json.Encode(@ViewBag.trucksJson))).Data;
+
+        var JSON = {
+            menu: trucksjson
+
+        }
+        var vv = buildList(JSON.menu, true);
+        var div = $('#nestable2').html(vv);
+
+        function openTruck(TruckId,TruckTypeId, ParentId) {
+            debugger;
+            //typeid, parentid
+            var truckId = TruckId;
+            var typeid = TruckTypeId;
+            var parentid = ParentId;
+            if (ParentId == -1){
+                parentid = 0;
+            }
+           
+            $.ajax({
+                type: 'get',
+                cache: false,              
+                url: '@Url.Action("AddTruck", "Truck")',
+                data: {
+                    Id:truckId,
+                    typeId: typeid,
+                    parentId: parentid
+                },
+
+                success: function(data) {
+                    if (data.success == true) {
+                        $('#myModal2').modal('hide');
+                        location.reload(false)
+                    } else {
+                        $('#modalWrapperadd').html(data);
+
+
+                    }
+                }
+            });
+
+        }
+
+
+
+        $('.demo3').click(function () {
+
+            var id=$(this).attr('data-id');
+
+            swal({
+                title: '@Resources.Global.SureToDelete ',//,
+                    text: '@Resources.Global.MessageTitle ',
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: '@Resources.Global.Dialogconfirm',
+                cancelButtonText: '@Resources.Global.CancelDeleting',
+                closeOnConfirm: false
+            },
+
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                $.get('/Truck/DeleteTruck?id=' + id, function () {
+                                    swal("Deleted!", '@Resources.Global.SuccessfullyDeleted', "success");
+                                    window.location.reload();
+                                });
+
+                            } else {
+                                $.get('/Truck/Index/', function (data) {
+                                    swal("Cancelled", "@Resources.Global.YourFileSafe :)", "Cancel");
+                                });
+                            }
+                        });
+        });
+        function edittruck(truckId) {
+            debugger;
+            //  $('#myModal3').modal('show');
+            $.ajax({
+                type: 'Get',
+                url:'/Truck/EditTruck/'+ truckId, 
+                success: function(data) {
+                    if (data.success == true) {
+                        $('#myModal3').modal('show');
+                        location.reload(false)
+                    } else {
+                        $('#modalWrapper').html(data);
+
+
+                    }
+
+                }
+            });
+        }
+
+
+
+
+
+        $('.btncollapse').click(function () {
+            var allSpan = document.getElementsByClassName('dd-handle');
+            for(var i = 0; i < allSpan.length; i++){
+
+                allSpan[i].onclick=function(){
+                    if(this.parentNode){
+                        var childList = this.parentNode.getElementsByClassName('dd-list');
+                        for(var j = 0; j< childList.length;j++){
+                            var currentState = childList[j].style.display;
+                            if(currentState=="none"){
+                                childList[j].style.display="block";
+                                $(this).find('span i').removeClass("fa  fa-angle-down").addClass("fa  fa-minus");
+
+                            }else{
+                                childList[j].style.display="none";
+                                $(this).find('span i').removeClass('fa  fa-minus ').addClass("fa fa-plus");
+
+
+                            }
+                        }
+                    }
+                }
+            }
+
+
+        }) ;
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

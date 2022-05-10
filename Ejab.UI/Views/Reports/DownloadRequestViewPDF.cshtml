@@ -1,0 +1,90 @@
+﻿@model  IEnumerable <Ejab.BAL.ModelViews.Reports.RequestViewModel>
+@{
+    ViewBag.Title = "GeneratePDF";
+    //  Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    table {
+        overflow: visible !important;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tfoot {
+        display: table-row-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+</style>
+
+<!doctype html>
+<h2 style="text-align:center">@Resources.Global.Requests</h2>
+        <table  class="table table-striped" style="table-layout: fixed; width: 100%">
+            <thead>
+                <tr>
+                    <th>@Resources.Global.RequestNumber </th>
+                    <th>@Resources.Global.Requestdate  </th>
+                    <th>@Resources.Global.CustomerName  </th>
+                    <th>@Resources.Global.Description  </th>
+                    <th>@Resources.Global.RegionName  </th>
+                    <th>@Resources.Global.LocationFrom  </th>
+                    <th>@Resources.Global.LocationTo  </th>
+                    <th>@Resources.Global.quantity  </th>
+                    <th>@Resources.Global.Period  </th>
+                    <th>@Resources.Global.ItemsInfo  </th>
+                    <th>@Resources.Global.Notes  </th>
+                    <th>@Resources.Global.RequestState  </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr >
+                        <td>@item.Id  </td>
+                        <td>@item.RequestDate.ToShortDateString()   </td>
+                        <td>@item.Customer</td>
+                        <td>@item.Description</td>
+                        <td>@item.RegionName</td>
+                        <td>@item.LocationFrom</td>
+                        <td>@item.LocationTo</td>
+
+                        <td>@item.Quantity     </td>
+                        <td>@item.Period     </td>
+                        <td>@item.ItemInfo     </td>
+                        <td>@item.Notes     </td>
+                        <td >
+                            @if (@item.RequestState.ToString() == "Open")
+                            {  <span class="btn btn-primary btn">@Resources.Global.Open</span>}
+                            @if (@item.RequestState.ToString() == "OnProgress")
+                            {  <span class="btn btn-success btn">@Resources.Global.OnProgress </span>}
+                            @if (@item.RequestState.ToString() == "Accepted")
+                            {  <span class="btn btn-default btn" style="background-color:dimgray">@Resources.Global.Accepted </span>}
+                            @if (@item.RequestState.ToString() == "Closed")
+                            {  <span class="btn btn-danger  btn">@Resources.Global.Close </span>}
+                            @if (@item.RequestState.ToString() == "Cancelled")
+                            {  <span class="btn btn-danger  btn">@Resources.Global.Cancelled</span>}
+                            @if (@item.RequestState.ToString() == "Expired")
+                            {  <span class="btn btn-info  btn">@Resources.Global.Expired </span>}
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    @*<div class="col-sm-12 text-center">
+            <nav aria-label="Page navigation">
+                @Html.PagedListPager(Model, Page => Url.Action("Propsales", "Reports", new { Page }))
+            </nav>
+        </div>*@
+
+
+
+

@@ -1,0 +1,379 @@
+﻿@model   Ejab.BAL.ModelViews.ServiceProviderDetailesViewModel
+
+@{
+    ViewBag.Title = "ServiceProviderDetailes";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.Detalies  </h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home   </a>
+                </li>
+                <li>
+                    @Resources.Global.Detalies
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content offers">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins ">
+                            <div class="ibox-content offer_details ">
+                                <div class="row">
+                                    <div class="col col-sm3">
+                                        <div class="form-group ">
+                                            <label> @Resources.Global.FirstName  :</label>
+                                            @Html.DisplayTextFor(x => x.FirstName)
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm3">
+                                        <div class="form-group ">
+                                            <label> @Resources.Global.LastName :</label>
+                                            @Html.DisplayTextFor(x => x.LastName)
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm3">
+                                        <div class="form-group ">
+                                            <label> @Resources.Global.Email :</label>
+                                            @Html.DisplayTextFor(x => x.Email)
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm3">
+                                        <div class="form-group ">
+                                            <label> @Resources.Global.Mobile  : </label>
+                                            @Html.DisplayTextFor(x => x.Mobile)
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="panel-group" id="accordion-1" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingTwo-1">
+                                        <h5 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapseTwo-1" aria-expanded="false" aria-controls="collapseTwo-1">
+                                              @Resources.Global.OfferDetails <i class="fa fa-angle-left"></i>
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseTwo-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo-1" aria-expanded="false">
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped " id="tblDataPric">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>@Resources.Global.OfferNumber </th>
+                                                            <th>@Resources.Global.Date </th>
+                                                            <th>@Resources.Global.PublishDate </th>
+                                                            <th>@Resources.Global.Price </th>
+                                                            <th>@Resources.Global.quantity </th>
+                                                            <th>@Resources.Global.Period </th>
+                                                            <th>@Resources.Global.Region </th>
+                                                            <th>@Resources.Global.ImageUrl </th>
+
+                                                            <th>@Resources.Global.TruckType</th>
+                                                            <th style="    width: 16%;">@Resources.Global.OfferTrucks  </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @foreach (var item in Model.ServiceProvidersOffers)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.OfferNumber</td>
+                                                                <td>@item.OfferDate.ToShortDateString() </td>
+                                                                <td>@item.PublishDate.ToShortDateString() </td>
+                                                                <td>@item.Price</td>
+                                                                <td>@item.quantity </td>
+                                                                <td>@item.Period </td>
+                                                                <td>@item.Region.Name</td>
+                                                                <td>
+                                                                    @*<img src="http://localhost:59274/@Model.ImageUrl " class="img-responsive img-block" alt="" />*@
+                                                                    <img src=@item.ImageUrl class="img-responsive img-block" alt="" />
+
+                                                                </td>
+
+
+                                                                <td>@item.TruckType.Name </td>
+                                                                <td>
+                                                                    @if (@item.OfferDetails != null)
+                                                                    {
+                                                                        <table class="table table-bordered">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th> Name</th>
+                                                                                    <th> Number </th>
+
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var detailes in @item.OfferDetails)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>@detailes.OfferTrucks.Name </td>
+                                                                                        <td>@detailes.trucksNo</td>
+
+                                                                                    </tr>
+
+
+
+
+                                                                                }
+
+                                                                            </tbody>
+                                                                        </table>
+
+
+                                                                    }
+
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                              
+ 
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingTwo-2">
+                                        <h5 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapseTwo-2" aria-expanded="false" aria-controls="collapseTwo-1">
+                                              @Resources.Global.Compaines <i class="fa fa-angle-left"></i>
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseTwo-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo-2" aria-expanded="false">
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped " id="tblDataPric">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> @Resources.Global.ServiceProviderId </th>
+                                                            <th> @Resources.Global.FirstName </th>
+                                                            <th> @Resources.Global.LastName </th>
+                                                            <th> @Resources.Global.Mobile </th>
+                                                            <th>@Resources.Global.Email </th>
+                                                            <th>@Resources.Global.ResponsePerson</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @foreach (var item in Model.comapnies)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.Id  </td>
+                                                                <td>@item.FirstName </td>
+
+                                                                <td>@item.LastName  </td>
+                                                                <td>@item.Mobile  </td>
+                                                                <td>@item.Email   </td>
+                                                                <td>@item.ResponsiblePerson   </td>
+
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingTwo-3">
+                                        <h5 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapseTwo-3" aria-expanded="false" aria-controls="collapseTwo-1">
+                                               @Resources.Global.requestDetails <i class="fa fa-angle-left"></i>
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseTwo-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo-3" aria-expanded="false">
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped serv " id="tblDataPric">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>@Resources.Global.RequestNumber </th>
+                                                            <th>@Resources.Global.Date </th>
+                                                            <th>@Resources.Global.StartingDate </th>
+                                                            <th>@Resources.Global.quantity </th>
+                                                            <th>@Resources.Global.Period </th>
+                                                            <th>@Resources.Global.LocationFrom </th>
+                                                            <th>@Resources.Global.LocationTo </th>
+
+                                                            @*<th>Region</th>*@
+                                                            <th>@Resources.Global.RequestType</th>
+                                                            <th>@Resources.Global.PermissionDate</th>
+
+                                                            <th> @Resources.Global.PropsalDate</th>
+                                                            <th> @Resources.Global.Price </th>
+                                                            <th> @Resources.Global.PropsalState</th>
+                                                            <th> @Resources.Global.IsAccepted</th>
+                                                            <th>@Resources.Global.AcceptedBy </th>
+                                                           
+                                                          
+                                                          
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @foreach (var item in Model.AcceptedRequests)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.Request.RequestNumber </td>
+                                                                <td>@item.Request.Requestdate.ToShortDateString()  </td>
+                                                                <td>@item.Request.StartingDate.ToShortDateString()  </td>
+                                                                <td>@item.Request.Quantity   </td>
+                                                                <td>@item.Request.Period  </td>
+                                                                <td>@item.Request.LocationFrom  </td>
+                                                                <td>@item.Request.LocationTo </td>
+                                                                @*<td>@item.Request.Region.Name </td>*@
+                                                                <td>@item.Request.RequestType </td>
+
+                                                                <td>@item.Request.PermissionDate.ToShortDateString() </td>
+                                                                <td>@item.Date.ToShortDateString()    </td>
+                                                                <td>@item.Price </td>
+                                                                <td>
+                                                                    @if (@item.PropsalStatus.ToString() == "Open")
+                                                                    {
+                                                                        <span class="label label-primary">@item.PropsalStatus</span>}
+
+                                                                    @if (@item.PropsalStatus.ToString() == "Accepted")
+                                                                    {
+                                                                        <span class="label label-default ">@item.PropsalStatus</span>}
+                                                                    @if (@item.PropsalStatus.ToString() == "Rejected")
+                                                                    {
+                                                                        <span class="label label-danger  ">@item.PropsalStatus</span>}
+                                                                    @if (@item.PropsalStatus.ToString() == "Cancelled")
+                                                                    {
+                                                                        <span class="label label-danger  ">@item.PropsalStatus</span>}
+                                                                    @if (@item.PropsalStatus.ToString() == "Expired")
+                                                                    {
+                                                                        <span class="label label-info  ">@item.PropsalStatus</span>}
+
+                                                                </td>
+                                                              <td>@item.IsAccepted </td>
+                                                                <td>@item.UserAcceptedBy.FirstName  @item.UserAcceptedBy.LastName </td>
+
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                    </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    @Html.Partial("~/Views/Shared/_Footer.cshtml")
+</div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

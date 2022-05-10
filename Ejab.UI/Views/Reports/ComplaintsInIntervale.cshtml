@@ -1,0 +1,193 @@
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+@model  IPagedList<Ejab.BAL.ModelViews.Reports.ComplaintViewModel>
+@{
+    /**/
+
+    ViewBag.Title = "ComplaintsInIntervale";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.Reports</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home  </a>
+                </li>
+                <li>
+                    @Resources.Global.Reports
+                </li>
+                <li>
+                    @Resources.Global.Complaints
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+    <div class="row" style="background-color:white">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            @*<div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group jobss">
+                                        <h3>
+                                            @Resources.Global.Complaints
+                                        </h3>
+                                    </div>
+
+                                </div>
+                            </div>*@
+                            <div class="ibox-content">
+
+
+
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        @using (Html.BeginForm("ComplaintsInIntervale", "Reports", FormMethod.Get))
+                                        {
+                                           
+                                            <div class="row form-group">
+                                                <label class="col-sm-2 col-form-label">    @Resources.Global.fromDate </label>
+                                                <div class=" col-sm-4 ">
+                                                    <input  name="fromDate" id="fromDate"  placeholder=@Resources.Global.DateFormate class="form-control " value="@DateTime.Now.Date.ToShortDateString()" >
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <label class="col-sm-2 col-form-label">     @Resources.Global.toDate </label>
+                                                <div class=" col-sm-4 ">
+
+                                                    <input name="toDate" id="toDate"  placeholder=@Resources.Global.DateFormate class="form-control " value=@DateTime.Now.Date.ToShortDateString()>
+                                                   
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="row form-group">
+                                                <div class="text-center">
+                                                    <button type="submit" class="btn btn-primary  " id="search">@Resources.Global.Search</button>
+                                                    <button type="button" class="btn btn-success  " id="btnExToPDF" onclick="location.href='@Url.Action("DownloadComplaintsIntervalesViewPDF", "Reports", new { })'">@Resources.Global.ExportToPdf</button>
+                                                    <button type="button" class="btn btn-success  " id="btnExToExcel"  onclick="location.href='@Url.Action("ExportComplaintsIntervalData", "Reports", new { })'">@Resources.Global.ExportToExcel</button>
+                                                   
+
+                                                </div>
+                                            </div>
+                                       
+
+                                        }
+                                    </div>
+                                </div>
+
+
+
+
+                                <!--  -->
+                                <!--  -->
+
+                                <br />
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>@Resources.Global.Date </th>
+                                                    <th>@Resources.Global.Cause  </th>
+
+                                                    <th>@Resources.Global.Name  </th>
+                                                    <th>@Resources.Global.Email  </th>
+                                                    <th>@Resources.Global.Mobile  </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model == null || Model.Count() == 0)
+                                                {
+                                                    <tr class="text-center text-danger"><td colspan="6">@Resources.Global.NoData</td></tr>
+                                                }
+
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Date.ToShortDateString()  </td>
+                                                        <td>@item.Cause   </td>
+                                                        <td>@item.Name </td>
+                                                        <td>@item.Email </td>
+                                                        <td>@item.Phone     </td>
+                                                    </tr>
+
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-12 text-center">
+                                        <nav aria-label="Page navigation">
+                                            @Html.PagedListPager(Model, Page => Url.Action("ComplaintsInIntervale", "Reports", new { Page, fromDate = Request.QueryString["fromDate"], toDate = Request.QueryString["toDate"] }))
+                                        </nav>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    @Html.Partial("~/Views/Shared/_Footer.cshtml")
+</div>
+<script>
+    $(document).ready(function () {
+        //$('#fromDate').datepicker({
+        //    locale: 'ru',
+        //    format: 'dd/mm/yyyy'
+        //});
+        //$('#toDate').datepicker({
+        //    locale: 'ru',
+        //    format: 'dd/mm/yyyy'
+        //});
+
+        if (@Model.Count()==0) {
+
+            $('#btnExToExcel').attr('disabled', 'disabled');
+            $('#btnExToPDF').attr('disabled', 'disabled');
+        }
+        if (@Model.Count()>0) {
+            $('#btnExToExcel').removeAttr('disabled');
+            $('#btnExToPDF').removeAttr('disabled');
+        }
+
+       
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        var foo = getParameterByName('fromDate'); // "lorem"
+        var nametext=document.getElementById('fromDate');
+        nametext.value=foo;
+        var todate = getParameterByName('toDate'); // "lorem"
+        var todattext=document.getElementById('toDate');
+        todattext.value=todate;
+     
+    })
+
+</script>
+

@@ -1,0 +1,230 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model  IPagedList<Ejab.BAL.ModelViews.UserViewModel>
+
+
+
+
+<div id="tab-2" class="tab-pane">
+
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="form-group jobss">
+                <h5>
+                    @Resources.Global.CustomersCount
+                    <span>
+                        @ViewBag.Count
+                    </span>
+                </h5>
+            </div>
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-6 text-left">
+            @using (Html.BeginForm("AllRequsters", "Customer", FormMethod.Get))
+            {
+
+                <div class="input-group m-b">
+                    <input type="text" name="search" id="search" placeholder="search" class="form-control">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary " id="btnsearch">@Resources.Global.Search</button>
+
+                    </span>
+                </div>
+
+
+
+            }
+        </div>
+    </div>
+
+
+    <!-- -->
+    <!-- -->
+
+    <div class="row">
+
+        <div class="table-responsive" id="requesterslist">
+
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>@Resources.Global.CustomerCode </th>
+                        <th>@Resources.Global.CustomerName </th>
+                        <th>@Resources.Global.Email </th>
+                        <th>@Resources.Global.Mobile</th>
+
+                        <th>@Resources.Global.IsActive</th>
+                        <th style="width:22%"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>@item.Id </td>
+                            <td>@item.FirstName @item.LastName</td>
+                            <td>@item.Email </td>
+                            <td>@item.Mobile </td>
+
+                            <td>
+                                @if (@item.IsActive == true)
+                                {
+                                    <button class="btn btn-info btn-circle" type="button" id="changeState" onclick="location.href = '@Url.Action("Deactivate", "Customer", new {id = item.Id, stat = false})'">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+
+                                }
+
+                                else
+                                {
+                                    <button class="btn btn-warning btn-circle" type="button" id="changeState" onclick="location.href = '@Url.Action("Deactivate", "Customer", new {id = item.Id, stat = true})'">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+
+                                }
+
+
+                            </td>
+
+
+
+                            <td class="text-right footable-visible footable-last-column">
+                                <div class="btn-group">
+                                    @Html.ActionLink(Resources.Global.Detalies, "CustomerDetailes", "Customer", new { id = @item.Id }, new { @class = "btn btn-outline btn-primary" })
+                                    @Html.ActionLink(Resources.Global.Edit , "EditRequester", "Customer", new { id = @item.Id }, new { @class = "btn btn-outline btn-primary" })
+                                    @*@Html.ActionLink("Delete", "DeleteUser", "Customer", new { id = @item.Id }, new { @class = "btn btn-outline btn-danger", onclick = "return confirm('Are you sure you wish to delete this ServiceProvider?');" })*@
+                                    <button class="btn btn-outline btn-danger demo3" data-id="@item.Id">@Resources.Global.Delete </button>
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+
+
+            </table>
+
+        </div>
+        <div class="col-sm-12 text-center">
+            <nav aria-label="Page navigation">
+                @Html.PagedListPager(Model, Page => Url.Action("AllRequsters", "Customer", new { Page, search = Request.QueryString["search"], id = "paging" }))
+            </nav>
+        </div>
+
+    </div>
+
+
+
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#paging").click(function () {
+            var search = $("#search").val();
+            $("#requesterslist").load('@(Url.Action("AllRequsters", "Customer", null, Request.Url.Scheme))?search=' + search);
+        });
+    });
+</script>
+
+@section scripts{
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.demo3').click(function () {
+            debugger;
+            var id=$(this).attr('data-id');
+
+            swal({
+               title: '@Resources.Global.SureToDelete ',//,
+                    text: '@Resources.Global.MessageTitle ',
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: '@Resources.Global.Dialogconfirm',
+                closeOnConfirm: false
+            },
+
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                $.get('/Customer/DeleteUser?id=' + id, function () {
+                                    swal("Deleted!", '@Resources.Global.SuccessfullyDeleted', "success");
+                                    window.location.reload();
+                                                });
+
+                            } else {
+                                $.get('/Customer/AllServiceProviders/', function (data) {
+                                    swal("Cancelled", "@Resources.Global.YourFileSafe  :)", "Cancel");
+                                });
+
+
+                            }
+                        });
+        });
+
+
+    });
+    </script>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@section Scripts
+    {
+    <script>
+        $(function(){
+            $("#AllRequester").change(function (e) {
+             var val=$(this).val();
+             $("#billBudgetPartial").load("/Budgeting/BillDetails/"+val);
+           });
+        });
+    </script>
+    }*@

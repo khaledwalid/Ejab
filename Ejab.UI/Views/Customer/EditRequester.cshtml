@@ -1,0 +1,191 @@
+﻿@model Ejab.BAL.ModelViews.UserViewModelFromAdmin
+
+@{
+    ViewBag.Title = "EditRequester";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script type="text/javascript">
+    if (@Model.ProfileImgPath ==null) {
+        $('#ImgPreview').css('display','none');
+           
+    }
+    function ImagePreview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#ImgPreview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+
+
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2>@Resources.Global.Users</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home</a>
+                </li>
+                <li>
+                    @Resources.Global.Edit
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content loginss">
+                                <div class="">
+                                    <div class="row">
+                                        @using (Html.BeginForm("EditRequester", "Customer", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.ValidationSummary(true )
+                                            <div class="col col-sm-12 ">
+                                                <div class="form-group ">
+                                                    <label class="col-sm-2 control-label">@Resources.Global.FirstName</label>
+                                                    <div class="col-sm-10">
+                                                        @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", placeholder= @Resources.Global.FirstName })
+                                                        @Html.ValidationMessageFor(x => x.FirstName)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">@Resources.Global.LastName </label>
+                                                    <div class="col-sm-10">
+
+                                                        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", placeholder = @Resources.Global.LastName })
+                                                        @Html.ValidationMessageFor(x => x.LastName)
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">@Resources.Global.Mobile </label>
+                                                    <div class="col-sm-10">
+                                                        @Html.TextBoxFor(x => x.Mobile, new { @class = "form-control",  placeholder = @Resources.Global.Mobile, onkeypress = "return isNumberKey(event)" })
+                                                        @Html.ValidationMessageFor(x => x.Mobile)
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label class="col-sm-2 control-label">@Resources.Global.Email </label>
+                                                    <div class="col-sm-10">
+                                                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = @Resources.Global.Email })
+                                                        @Html.ValidationMessageFor(x => x.Email)
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">@Resources.Global.Password  </label>
+                                                    <div class="col-sm-10">
+                                                        @Html.PasswordFor(x => x.Password, new { @class = "form-control", placeholder = @Resources.Global.Password })
+                                                        @*@Html.ValidationMessageFor(x => x.Password, "*")*@
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label class="col-sm-2 control-label">@Resources.Global.ProfileImgPath </label>
+                                                    <div class="col-sm-10">
+                                                        <input type="file" name="file" class="form-control" id="Profileupload" onchange="ImagePreview(this);" />
+                                                        <div><img alt="ImagePreview" src="http://naqelat.sa/Customers/@Model.ProfileImgPath" id="ImgPreview" class="img_2 " /></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-offset-2 col-lg-10">
+                                                        <button type="submit" class="btn btn-primary demo3 ">@Resources.Global.Save </button>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        }
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function ImagePreview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ImgPreview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+        function Sucsses() {
+
+            swal({
+                    title: "تعديل البيانات",
+                    text: "تم تعديل البيانات بنجاح",
+                    type: "sucess",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel plx!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        swal("OK!", '@Resources.Global.SuccessfullyDeleted', "success");
+                    } else {
+                        swal("Cancelled", "@Resources.Global.YourFileSafe:)", "error");
+                    }
+                });
+        }
+       
+        $(document).ready(function () {
+            if (@Model.ProfileImgPath ==null) {
+                $('#ImgPreview').css('display','none');
+           
+            }
+          
+        });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

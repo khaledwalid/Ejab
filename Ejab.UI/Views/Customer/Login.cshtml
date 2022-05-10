@@ -1,0 +1,180 @@
+﻿@model Ejab.BAL.ModelViews.AdminLogin
+
+@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@Resources.Global.Login </title>
+
+    <link href="~/Content/Admin/css/bootstrap.rtl.css" rel="stylesheet">
+    <link href="~/Content/Admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/Content/Admin/css/animate.css" rel="stylesheet">
+    <link href="~/Content/Admin/css/style.css" rel="stylesheet">
+    <link href="~/Content/Admin/css/style_ar.css" rel="stylesheet">
+    <link href="~/Content/Admin/css/sweetalert.css" rel="stylesheet" />
+</head>
+
+<body class="logins gray-bg ">
+
+    <section class="section ">
+        <div class="container">
+            <div class="title-header text-center">
+                <h1>@Resources.Global.Login</h1>
+            </div>
+            <div class="border"></div>
+
+
+            @using (Html.BeginForm("Login", "Customer", FormMethod.Post, new { @class = "order-price " }))
+            {
+                <div class="row">
+                    <div class="col-md-12 ">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary()
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                @Resources.Global.Email
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-envelope"></span>
+                                </span>
+
+                                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", id = "email", required = "required" })
+                                @*@Html.ValidationMessageFor(x => x.Email, "*")*@
+                            </div>
+
+
+                        </div>
+                        <div class="form-group">
+
+                            <label for="name">
+                                @Resources.Global.Password
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-asterisk"></span>
+                                </span>
+
+                                @Html.PasswordFor(x => x.Password, new { @class = "form-control", id = "name", required = "required" })
+                                @*@Html.ValidationMessageFor(x => x.Password, "*")*@
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <button type="submit" class="btn btn-primary block full-width m-b btn-simple ">@Resources.Global.Login  <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                          
+                        </div>
+
+                        @if (ViewBag.ErrorExist !=null)
+                        {
+                           <span> error</span>
+                        }
+
+
+
+
+                    </div>
+                </div>
+            }
+        </div>
+
+    </section>
+
+
+
+
+    <!-- Mainly scripts -->
+    <script src="~/Scripts/js/jquery-2.1.1.js"></script>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/js/sweetalert.min.js"></script>
+</body>
+
+</html>
+
+
+@{
+    if (@ViewBag.message != null)
+    {
+        <script type="text/javascript">
+        function  FailureLogin() {
+
+            swal({
+                title: "عفوا",
+                text: "  عفوا لقد ادخلت اسم مستخدم او كلمه مرور غير صحيحه ",
+                type: "info",
+                allowEscapeKey: true,
+                html: true
+
+            })
+        }
+        </script>
+    }
+    if (TempData["NotValid"] != null)
+    {
+        <script type="text/javascript">
+        function  NotValid() {
+
+            swal({
+                title: "عفوا",
+                text: "  عفوا لقد ادخلت اسم مستخدم او كلمه مرور غير صحيحه ",
+                type: "info",
+                allowEscapeKey: true,
+                html: true
+
+            })
+        }
+        </script>
+    }
+
+    if (TempData["EmailExist"] != null)
+    {
+        <script type="text/javascript">
+        function  EmailNotExist() {
+
+            swal({
+                title: "عفوا",
+                text: "  هذا البريد الالكترونى غير موجود ",
+                type: "info",
+                allowEscapeKey: true,
+                html: true
+
+            })
+        }
+        </script>
+    }
+
+    if (TempData["error"] != null)
+    {
+        <script type="text/javascript">
+        function  FailureLogin() {
+
+            swal({
+                title: "لقد ادخلت بيانات الدخول بطريقه غير صحيحه",
+                text: "  عفوا لقد ادخلت اسم مستخدم او كلمه مرور غير صحيحه ",
+                type: "info",
+                allowEscapeKey: true,
+                html: true
+
+            })
+        }
+        </script>
+    }
+}
+
+

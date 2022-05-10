@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Ejab.BAL.ModelViews.CommonQuestions.Commonquestionsviewmodel>
+
+@foreach (var item in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo-1">
+            <h5 class="panel-title">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapseTwo-@item.Id" aria-expanded="true" aria-controls="collapseTwo-@item.Id">
+                    @item.QuestionArb
+
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            </h5>
+        </div>
+        <div id="collapseTwo-@item.Id" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo-@item.Id">
+            <div class="panel-body">
+                <p>
+                    @item.AnswerArb
+                </p>
+
+            </div>
+        </div>
+    </div>
+}
+
+

@@ -1,0 +1,195 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model  IPagedList<Ejab.BAL.ModelViews.Reports.TruckDTO>
+@{
+    ViewBag.Title = "Trucks";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.Reports</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Chart/Index/">@Resources.Global.Home  </a>
+                </li>
+                <li>
+                    @Resources.Global.Reports
+                </li>
+                <li>
+                    @Resources.Global.Trucks
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+    <div class="row" style="background-color:white">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            @*<div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group jobss">
+                                        <h3>
+                                            @Resources.Global.Trucks
+                                        </h3>
+                                    </div>
+
+                                </div>
+                            </div>*@
+                            <div class="ibox-content">
+
+
+
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        @using (Html.BeginForm("Trucks", "Reports", FormMethod.Get))
+                                        {
+                                           
+                                            <div class="form-group row ">
+                                                <label class="col-sm-2 col-form-label">     @Resources.Global.TruckParentName </label>
+                                                <div class=" col-sm-6  ">
+                                                    @Html.DropDownList("parentId", (IEnumerable<SelectListItem>)ViewBag.allParents, @Resources.Global.PleaseSelect, new { @class = "form-control m-b chosen-select" })
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row form-group">
+                                                <div class="text-center">
+                                                    <button type="submit" class="btn btn-primary  ">@Resources.Global.Search</button>
+                                                    <button type="button" class="btn btn-success  " id="btnExToPDF" onclick="location.href='@Url.Action("DownloadTrucksByParentViewPDF", "Reports", new { })'">@Resources.Global.ExportToPdf</button>
+                                                    <button type="button" class="btn btn-success  " id="btnExToExcel" onclick="location.href='@Url.Action("ExportTrucksByParentData", "Reports", new { })'">@Resources.Global.ExportToExcel</button>
+                                                   
+
+                                                </div>
+                                            </div>
+
+                                        }
+                                    </div>
+                                </div>
+
+
+
+
+                                <!--  -->
+                                <!--  -->
+
+                                <br />
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>@Resources.Global.TruckNameArb  </th>
+                                                
+                                                    <th>@Resources.Global.TruckNameEng   </th>
+
+                                                    <th>@Resources.Global.TruckIcon  </th>
+                                                    
+                                                    <th>@Resources.Global.TruckParentNameArb</th>
+                                                    <th>@Resources.Global.TruckParentNameEng</th>
+                                                    <th>@Resources.Global.ParenttruckIcon</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model == null || Model.Count() == 0)
+                                                {
+                                                    <tr class="text-center text-danger"><td colspan="6">@Resources.Global.NoData</td></tr>
+                                                }
+
+                                                 @foreach (var item in Model)
+                                                 {
+                                                    if (@item.Childs != null)
+                                                    {
+                                                        foreach (var truck in @item.Childs)
+                                                        {
+                                                <tr>
+                                                    <td>
+                                                        @truck.TruckNameArb
+                                                    </td>
+                                                    <td>@truck.TruckNameEng   </td>
+
+                                                    <td>
+                                                        <img src=@truck.ImagePath style="width:60px" />
+
+                                                    </td>
+                                                    <td>
+                                                        @item.TruckNameArb
+
+                                                    </td>
+                                                    <td>
+                                                        @item.TruckNameEng
+
+                                                    </td>
+                                                    <td>
+                                                        <img src=@truck.ParentImagePath style="width:60px" />
+
+                                                    </td>
+                                                </tr>
+                                                        }
+                                                    }
+
+
+                                                 }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-12 text-center">
+                                        <nav aria-label="Page navigation">
+                                            @Html.PagedListPager(Model, Page => Url.Action("Trucks", "Reports", new { Page, parentId = Request.QueryString["parentId"] }))
+                                        </nav>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    @Html.Partial("~/Views/Shared/_Footer.cshtml")
+</div>
+<script>
+    $(document).ready(function () {
+        @*var temp='@Resources.Global.PleaseSelect';
+        $("#parentId").val(temp);*@
+        if (@Model.Count() ==0) {
+
+            $('#btnExToExcel').attr('disabled', 'disabled');
+            $('#btnExToPDF').attr('disabled', 'disabled');
+        }
+        if (@Model.Count() >0) {
+            $('#btnExToExcel').removeAttr('disabled');
+            $('#btnExToPDF').removeAttr('disabled');
+        }
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        var foo = getParameterByName('parentId'); // "lorem"
+        var nametext=document.getElementById('parentId');
+        nametext.value=foo;
+        console.log(foo);
+        $('#parentId').attr('title', '@Resources.Global.SelectFromList');
+
+
+    })
+</script>

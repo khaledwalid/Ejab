@@ -1,0 +1,85 @@
+﻿@model  IEnumerable<Ejab.BAL.ModelViews.Reports.PropsalesViewModel>
+@{
+    ViewBag.Title = "GeneratePDF";
+    //  Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    table {
+        overflow: visible !important;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tfoot {
+        display: table-row-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+</style>
+
+<!doctype html>
+
+        <h2 style="text-align:center">@Resources.Global.ProposalPrice</h2>
+        <table class="table table-striped"  style="table-layout: fixed; width: 100%">
+            <thead>
+                <tr>
+                    <th>@Resources.Global.RequestNumber  </th>
+                    <th>@Resources.Global.ServiceProvider   </th>
+                    <th>@Resources.Global.Rating   </th>
+                    <th>@Resources.Global.RequestTitle  </th>
+                    <th>@Resources.Global.Date </th>
+                    <th>@Resources.Global.Price @Resources.Global.CurrencySymoble  </th>
+                    <th>@Resources.Global.CustomerName  </th>
+
+                    <th>@Resources.Global.PropsalState  </th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+               
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td >@item.Request.RequestNumber    </td>
+                        <td>@item.ServicrProvider   </td>
+                        <td> @String.Format("{0:0.0}", @item.Rating)</td>
+                        <td>@item.Request.Title    </td>
+                        <td>@item.Date.ToShortDateString()  </td>
+                        <td>   @String.Format("{0:n0}", @item.Price)
+                        <td>@item.Request.Requster.FirstName    @item.Request.Requster.LastName     </td>
+
+
+
+                        <td class="footable-visible">
+                            @if (@item.PropsalStat.ToString() == "Open")
+                            {  <span class="btn btn-primary btn">@Resources.Global.Open</span>}
+                            @if (@item.PropsalStat.ToString() == "OnProgress")
+                            {  <span class="btn btn-success btn">@Resources.Global.OnProgress </span>}
+                            @if (@item.PropsalStat.ToString() == "Accepted")
+                            {  <span class="btn btn-default btn" style="background-color:dimgray">@Resources.Global.Accepted </span>}
+                            @if (@item.PropsalStat.ToString() == "Closed")
+                            {  <span class="btn btn-danger  btn">@Resources.Global.Close </span>}
+                            @if (@item.PropsalStat.ToString() == "Cancelled")
+                            {  <span class="btn btn-danger  btn">@Resources.Global.Cancelled</span>}
+                            @if (@item.PropsalStat.ToString() == "Expired")
+                            {  <span class="btn btn-info  btn">@Resources.Global.Expired </span>}
+
+                        </td>
+
+                    </tr>
+
+                }
+
+
+            </tbody>
+        </table>
+ 
+
+

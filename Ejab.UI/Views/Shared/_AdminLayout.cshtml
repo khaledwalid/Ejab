@@ -1,0 +1,149 @@
+﻿
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Home</title>
+
+
+    @*@Styles.Render("~/Content/Admin/css")*@
+
+
+
+    @{
+        if (Request.Cookies["language"] == null || Request.Cookies["language"].Value == null)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ar-EG");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ar-EG");
+            <link href="~/Content/Admin/css/bootstrap.rtl.css" rel="stylesheet" />
+            <link rel="stylesheet" href="~/Content/Admin/css/chosen.bootstrap.css">
+
+        }
+        else if (Request.Cookies["language"] != null)
+        {
+            var lang = Request.Cookies["language"].Value.ToString();
+            if (lang == "ar-EG")
+            {
+                <link href="~/Content/Admin/css/bootstrap.rtl.css" rel="stylesheet" />
+                   <!-- AutoComplete -->
+                <link rel="stylesheet" href="~/Content/Admin/css/chosen.bootstrap.css">
+               
+                @*<link href="~/Content/Admin/css/bootstrap-datepicker.css" rel="stylesheet" />*@
+            }
+            if (lang == "en-US")
+            {
+                <link href="~/Content/Admin/css/bootstrap.min.css" rel="stylesheet" />
+                   <!-- AutoComplete -->
+                <link rel="stylesheet" href="~/Content/Admin/css/chosen.bootstrapEn.css">
+
+                @*<link href="~/Content/Admin/css/bootstrap-datepickerEn.css" rel="stylesheet" />*@
+
+            }
+
+        }
+
+    }
+
+    <link href="~/Content/Admin/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/Admin/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="~/Scripts/js/plugins/gritter/jquery.gritter.css" rel="stylesheet" />
+    <link href="~/Content/Admin/css/animate.css" rel="stylesheet" />
+    <link href="~/Content/Admin/css/boot-date.css" rel="stylesheet" />
+    <link href="~/Content/Admin/css/boot-time.css" rel="stylesheet" />
+
+
+    @{
+        if (Request.Cookies["language"] == null || Request.Cookies["language"].Value==null)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ar-EG");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ar-EG");
+            <link href="~/Content/Admin/css/style.css" rel="stylesheet" />
+            <link href="~/Content/Admin/css/style_ar.css" rel="stylesheet" />
+            <link rel="stylesheet" href="~/Content/Admin/css/chosen.bootstrap.css">
+
+
+        }
+
+        else if (Request.Cookies["language"].Value != null)
+        {
+            var lang = Request.Cookies["language"].Value.ToString();
+            if (lang == "ar-EG")
+            {
+                <link href="~/Content/Admin/css/style.css" rel="stylesheet" />
+                <link href="~/Content/Admin/css/style_ar.css" rel="stylesheet" />
+                <link rel="stylesheet" href="~/Content/Admin/css/chosen.bootstrap.css">
+            }
+            if (lang == "en-US")
+            {
+                <link href="~/Content/Admin/css/style_eng.css" rel="stylesheet" />
+                <link href="~/Content/Admin/css/style_ar_eng.css" rel="stylesheet" />
+                <link rel="stylesheet" href="~/Content/Admin/css/chosen.bootstrapEn.css">
+            }
+        }
+    }
+    <link href="~/Scripts/js/plugins/gritter/jquery.gritter.css" rel="stylesheet" />
+    <link href="~/Content/Admin/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="~/Content/Rating.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/css/sweetalert.css">
+    <link rel="icon" href="~/Content/Admin/img/favicon.ico" />
+
+
+    <script src="~/Scripts/js/jquery-2.1.1.js"></script>
+</head>
+
+<body>
+    <div class="loading"></div>
+
+    @Html.Partial("~/Views/Shared/_Header.cshtml")
+    @Html.Partial("~/Views/Shared/_SideMenue.cshtml")
+
+
+    @RenderBody()
+
+    @*@Scripts.Render("~/Scripts/jquery2.11")
+
+        @Scripts.Render("~/Scripts/bootstrao")
+        @Scripts.Render("~/bundles/metisMenu")
+        @Scripts.Render("~/bundles/slimscroll")
+        @Scripts.Render("~/bundles/inspinia")
+        @Scripts.Render("~/bundles/pace")
+        @Scripts.Render("~/bundles/jquery-ui")*@
+
+
+
+
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+    <!-- autoComplete -->
+
+    <script src="~/Scripts/js/chosen.jquery.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="~/Scripts/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/js/boot-time.js"></script>
+    <script src="~/Scripts/js/boot-date.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="~/Scripts/js/inspinia.js"></script>
+    @*<script src="~/Scripts/js/plugins/pace/pace.min.js"></script>*@
+    <script src="~/Scripts/js/sweetalert.min.js"></script>
+    <script src="~/Scripts/js/plugins/chartJs/Chart.min.js"></script>
+    <script src="~/Scripts/js/plugins/nestable/jquery.nestable.js"></script>
+    <script src="~/Scripts/DeleteButtons.js"></script>
+    @*<script src="~/Scripts/CustomJs.js"></script>*@
+    <script src="~/Scripts/Home.js"></script>
+    @*<script src="~/Scripts/js/bootstrap-datepicker.js"></script>*@
+   
+
+
+
+
+</body>
+
+
+@RenderSection("scripts", false)
+
+</html>

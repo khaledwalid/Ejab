@@ -1,0 +1,80 @@
+﻿@model Ejab.BAL.ModelViews.Notification.NotificationViewModel
+
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDfCC7oQsJiD6Xk-C3CPkSVKaftdiphj_0",
+    authDomain: "naqelat-a5186.firebaseapp.com",
+    databaseURL: "https://naqelat-a5186.firebaseio.com",
+    projectId: "naqelat-a5186",
+    storageBucket: "naqelat-a5186.appspot.com",
+    messagingSenderId: "371424476730"
+  };
+  firebase.initializeApp(config);
+</script>
+
+@using (Html.BeginForm("AddNoty", "Notify", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">  @Resources.Global.SendingTo  </label>
+        <div class="col-sm-10">
+            <label class="checkbox-inline"> @*<input type="checkbox"  name="chkAllUsers" value="1" id="chkAllUsers" checked="checked">*@
+                @Html.CheckBox("chkAllUsers")
+             @Resources.Global.All </label>
+            <label class="checkbox-inline"> @*<input type="checkbox"  name="chkAllServiceProviders"  value="2" id="chkAllServiceProviders">*@  
+                @Html.CheckBox("chkAllServiceProviders")
+                @Resources.Global.AllServiceProviders</label>
+            <label class="checkbox-inline"> @*<input type="checkbox"  name="chkAllRequesters"   value="3" id="chkAllRequesters">*@ 
+                @Html.CheckBox("chkAllRequesters")
+            @Resources.Global.AllRequestes
+             </label>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">@Resources.Global.NotificationAddress </label>
+
+        <div class="input-group m-b ">
+            @Html.TextBoxFor(x => x.Title, new { @class = "form-control", placeholder = @Resources.Global.NotificationAddress,Required="true" })
+
+            <span class="input-group-addon">100</span>
+        </div>
+    </div>
+   
+     
+        <div class="form-group">
+            <label class="col-sm-2 control-label">@Resources.Global.NotificationDescription   </label>
+
+            <div class="input-group m-b">
+                @Html.TextAreaFor(x => x.Body, new { @class = "form-control", placeholder = @Resources.Global.NotificationDescription, rows = "5",Required = "true" })
+
+                <span class="input-group-addon">200</span>
+            </div>
+        </div>
+
+
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+            <button class="btn btn-primary buttt" type="submit" id="btnSave">@Resources.Global.Save </button>
+            @Html.ActionLink(Resources.Global.Back, "Index", "AboutApp", new { @class = "btn btn - default  buttt" })
+        </div>
+        </div>
+      
+   }
+
+
+
+@section scripts {
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js"></script>
+    }

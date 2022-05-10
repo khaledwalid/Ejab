@@ -1,0 +1,109 @@
+﻿@model Ejab.BAL.ModelViews.RuleViewModel
+
+@{
+    ViewBag.Title = "EditRule";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div id="page-wrapper" class="gray-bg dashbard-1">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-8">
+            <h2> @Resources.Global.AdminRules</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/Home/Admin/">@Resources.Global.Home </a>
+                </li>
+                <li>
+                    @Resources.Global.AdminRules
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4 text-left">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+
+                            <div class="ibox-content">
+
+
+
+
+                                @using (Html.BeginForm("EditRule", "Rule", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary()
+
+                                    <div class="row">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">@Resources.Global.RuleName</label>
+
+                                            <div class="col-sm-10">
+                                                <div class="input-group m-b ">
+                                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(x => x.Name)
+                                                    <span class="input-group-addon">50</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        @if (Request.Cookies["language"] == null)
+                                        {
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">@Resources.Global.RuleDescription</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="input-group m-b ">
+                                                        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(x => x.Description)
+                                                        <span class="input-group-addon">50</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        }
+                                        @if (Request.Cookies["language"] != null)
+                                        {
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">@Resources.Global.RulDescriptionEng </label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="input-group m-b ">
+                                                        @Html.TextBoxFor(x => x.DescriptionEng, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(x => x.DescriptionEng)
+                                                        <span class="input-group-addon">50</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        }
+                                      
+                                        <div class="col-lg-offset-2 col-lg-10">
+                                            <div class="form-group">
+
+                                                <input type="submit" value="Save" class="btn btn-primary demo3" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer text-center">
+        <p>@Resources.Global.footer </p>
+    </div>
+</div>
