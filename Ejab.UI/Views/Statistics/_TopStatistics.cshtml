@@ -1,21 +1,18 @@
-﻿@model   Ejab.BAL.ModelViews.Statictics.StaticticsViewModel
+﻿@model  Ejab.BAL.ModelViews.Statictics.StaticticsViewModel
 
-@*@foreach (var item in Model)
-{*@
-    <div class="col-md-3">
-        <span class='numscroller' data-min='1' data-max=@Model.TrucksOrdersNo data-delay='10' data-increment='5'>@Model.TrucksOrdersNo  </span>
-        <p>طلب الشاحنات</p>
-    </div>
-            <div class="col-md-3">
-                <span class='numscroller' data-min='1' data-max=@Model.CustomerNo data-delay='10' data-increment='10'>@Model.CustomerNo</span>K
-                <p>مستخدم و زائر</p>
-            </div>
-            <div class="col-md-3">
-                <span class='numscroller' data-min='1' data-max=@Model.OfferNo data-delay='10' data-increment='5'>@Model.OfferNo</span>
-                <p> عرض متاح</p>
-            </div>
-            <div class="col-md-3">
-                <span class='numscroller' data-min='1' data-max=@Model.AppDownloadsNo data-delay='10' data-increment='10'>@Model.AppDownloadsNo</span>K
-                <p> تحميل التطبيق</p>
-            </div>
-@*}*@
+<div class="col-md-3">
+    <span class='numscroller' data-min='1' data-max=@Model.TrucksOrdersNo data-delay='10' data-increment='5'>@Model.TrucksOrdersNo  </span>
+    <p>طلب الشاحنات</p>
+</div>
+<div class="col-md-3">
+    <span class='numscroller' data-min='1' data-max=@Model.CustomerNo data-delay='10' data-increment='10'>@Model.CustomerNo</span>K
+    <p>مستخدم و زائر</p>
+</div>
+<div class="col-md-3">
+    <span class='numscroller' data-min='1' data-max=@Model.OfferNo data-delay='10' data-increment='5'>@Model.OfferNo</span>
+    <p> عرض متاح</p>
+</div>
+<div class="col-md-3">
+    <span class='numscroller' data-min='1' data-max=@Model.AppDownloadsNo data-delay='10' data-increment='10'>@Model.AppDownloadsNo</span>K
+    <p> تحميل التطبيق</p>
+</div>

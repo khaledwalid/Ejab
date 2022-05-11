@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ejab.DAl;
-using Ejab.BAL.Reository;
 using Ejab.BAL.UnitOfWork;
 using Ejab.DAl.Common;
 using Ejab.BAL.Common;
 using Ejab.BAL.ModelViews;
 using System.Net.Http;
-using System.Web.Http.Routing;
 using System.Web;
-using System.Data.Entity;
 using Ejab.BAL.Helpers;
 using System.Configuration;
+using System.Data.Entity;
 using Ejab.BAL.Services.Notification;
 using Ejab.BAL.ModelViews.Notification;
 

@@ -92,9 +92,9 @@
     <Compile Include="DbContext\EjabContext.cs" />
     <Compile Include="DbContext\EjabContextForUI.cs" />
     <Compile Include="DbContext\IEjabContext.cs" />
-    <Compile Include="Migrations\201803061231547_test.cs" />
-    <Compile Include="Migrations\201803061231547_test.Designer.cs">
-      <DependentUpon>201803061231547_test.cs</DependentUpon>
+    <Compile Include="Migrations\202205110852480_intial-migration.cs" />
+    <Compile Include="Migrations\202205110852480_intial-migration.Designer.cs">
+      <DependentUpon>202205110852480_intial-migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AboutApplication.cs" />
@@ -137,8 +137,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803061231547_test.resx">
-      <DependentUpon>201803061231547_test.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202205110852480_intial-migration.resx">
+      <DependentUpon>202205110852480_intial-migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -37,7 +37,7 @@ namespace Ejab.UI.Controllers
             {
                 return View(statistics);
             }
-            _istatisticsService.AddStatistics (statistics,1);
+            _istatisticsService.AddStatistics(statistics, 1);
             return RedirectToAction("Index");
 
         }
@@ -46,7 +46,7 @@ namespace Ejab.UI.Controllers
         //[Authorize]
         public ActionResult EditStatistics(int id)
         {
-            var director = _istatisticsService.GetById (id);
+            var director = _istatisticsService.GetById(id);
             return View(director);
         }
         [HttpPost]
@@ -54,7 +54,7 @@ namespace Ejab.UI.Controllers
         public ActionResult EditStatistics(int id, StaticticsViewModel stat)
         {
 
-            _istatisticsService.EditStatistics (id, stat,1);
+            _istatisticsService.EditStatistics(id, stat, 1);
             return RedirectToAction("Index");
             if (!ModelState.IsValid)
             {
@@ -66,15 +66,15 @@ namespace Ejab.UI.Controllers
         [HttpGet]
         public ActionResult DeleteStatistics(int id)
         {
-            _istatisticsService.DeleteStatistics (id,1);
+            _istatisticsService.DeleteStatistics(id, 1);
             return RedirectToAction("Index");
         }
-       
+
         [HttpGet]
         [AllowAnonymous]
         public ActionResult TopStatistics()
         {
-            var model = _istatisticsService.All().FirstOrDefault();
+            var model = _istatisticsService.All().FirstOrDefault() ?? new StaticticsViewModel().Initialize();
             return PartialView("~/Views/Statistics/_TopStatistics.cshtml", model);
         }
 

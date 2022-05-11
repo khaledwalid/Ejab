@@ -88,6 +88,7 @@ namespace Ejab.Rest.Controllers
         {
             return _customerService.IsUserMobileAvialable(Mobile);
         }
+
         public bool IsUserEmailAvialable(string Email)
         {
             return _customerService.IsUserEmailAvialable(Email);
@@ -125,7 +126,7 @@ namespace Ejab.Rest.Controllers
         {
             try
             {
-                var code = ResetPassword(resetpasswordModel);
+                var code = _customerService.ResetPassword(resetpasswordModel);
                 return new ResponseDTO(code.ToString(), "");
             }           
             catch (Exception ex)
@@ -156,6 +157,7 @@ namespace Ejab.Rest.Controllers
             return new ResponseDTO("");
         }
 
+        [HttpPost]
         [AllowAnonymous]
         [Route("UserLogin")]
         public ResponseDTO LogIn(LoginViewModel loginModel)
@@ -296,6 +298,7 @@ namespace Ejab.Rest.Controllers
                 return new ResponseDTO(ex.Message);
             }
         }
+
         [HttpGet]
         [Route("AllFaceBookUsers")]
         public ResponseDTO AllFaceBookUsers()
