@@ -29,6 +29,7 @@ namespace Ejab.UI.Controllers
         public ActionResult Login()
 
         { return View(); }
+
         [HttpPost]
         [AllowAnonymous]
         public ActionResult Login(AdminLogin loginModel)
@@ -60,21 +61,15 @@ namespace Ejab.UI.Controllers
                     return View();
 
                 }
-                List<string> AdminRules = new List<string>();
 
-                foreach (var item in userRules)
-                {
-                    AdminRules.Add(item.Name);
-                }
-                var path = Server.MapPath("~/AdminProfileImgs/");
-                var currentlang = "";
+                var currentlang = "ar-EG";
 
                 if (Request.Cookies["language"] != null)
                 {
                     currentlang = Request.Cookies["language"].Value.ToString();
                 }
-                MyPrincipalClone my = new MyPrincipalClone(currentadmin.Id, currentadmin.FirstName, currentadmin.Email, currentadmin.ProfileImgPath, AdminRules.ToArray(), currentlang);
-                string data = Newtonsoft.Json.JsonConvert.SerializeObject(my);
+                var my = new MyPrincipalClone(currentadmin.Id, currentadmin.FirstName, currentadmin.Email, currentadmin.ProfileImgPath, userRules.Select(item => item.Name).ToArray(), currentlang);
+                var data = Newtonsoft.Json.JsonConvert.SerializeObject(my);
 
                 var authTicket = new FormsAuthenticationTicket(
                    1,
