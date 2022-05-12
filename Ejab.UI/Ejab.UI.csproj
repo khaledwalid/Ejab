@@ -549,6 +549,13 @@
     <Content Include="Scripts\js\wow.js" />
     <Content Include="Scripts\menuItemsSelected.js" />
     <Content Include="TermsAndConditions.html" />
+    <Content Include="TrucksIcons\10-compactors.jpg" />
+    <Content Include="TrucksIcons\10-compactors_2_360.jpg" />
+    <Content Include="TrucksIcons\10-silo-truck-.jpg" />
+    <Content Include="TrucksIcons\4-car-transporters.jpg" />
+    <Content Include="TrucksIcons\4-car-transporter_1.jpg" />
+    <Content Include="TrucksIcons\4-car-transporter_2.jpg" />
+    <Content Include="TrucksIcons\7-grader.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -679,7 +686,6 @@
     <Folder Include="Customers\" />
     <Folder Include="Reports\" />
     <Folder Include="ServiceProviders\" />
-    <Folder Include="TrucksIcons\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
