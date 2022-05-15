@@ -20,8 +20,8 @@ namespace Ejab.BAL.Services
         }
         public TokenDTO GenerateToken(User user)
         {
-            long _issued_on = System.DateTime.Now.Ticks;
-            long _expires_on = System.DateTime.Now.AddDays(30).Ticks;
+            var _issued_on = System.DateTime.Now.Ticks.ToString();
+            var _expires_on = System.DateTime.Now.AddDays(30).Ticks.ToString();
             string _roles = string.Empty;
             string[] _rolesArr = null;
 
@@ -39,7 +39,7 @@ namespace Ejab.BAL.Services
             //    }
             //}
 
-            string tokenData = string.Format("user_id:{0},username:'{1}',email:'{2}',issued_on:{3},expires_on:{4}",
+            string tokenData = string.Format("user_id:{0},username:'{1}',email:'{2}',issued_on:'{3}',expires_on:'{4}'",
                 user.Id, user.FirstName+""+ user.LastName, user.Email, _issued_on, _expires_on);
 
             CustomDTO.TokenDTO dto = new CustomDTO.TokenDTO

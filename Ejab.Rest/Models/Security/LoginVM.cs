@@ -9,7 +9,7 @@ namespace Ejab.Rest.Models.Security
   public   class LoginVM
     {
 
-        public string username;
+        //public string username;
         public string Email;
         public string password;
         public string grant_type;

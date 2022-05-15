@@ -36,12 +36,12 @@ namespace Ejab.Rest
             unity.RegisterType<TruckTypeV1Controller>();
            
             unity.RegisterType<OfferV1Controller>();
+            unity.RegisterType<AuthorizeController>();
             unity.RegisterType<OfferImagesController>();
             unity.RegisterType<ServiceTypeV1Controller>();
             unity.RegisterType<MessageV1Controller>();
             unity.RegisterType<SuggestionsComplaintV1Controller>();
             unity.RegisterType<RequestV1Controller>();
-            unity.RegisterType<MessageV1Controller>();
             unity.RegisterType<InterestV1Controller>();            
             unity.RegisterType<SuggestionsComplaintV1Controller>();
             unity.RegisterType<RegionV1Controller>();

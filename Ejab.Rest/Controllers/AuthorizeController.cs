@@ -13,9 +13,10 @@ namespace Ejab.Rest.Controllers
 {
     public class AuthorizeController : BaseController
     {
-        IUserService _UserService;
-        public AuthorizeController(UnitOfWork _uow, IUserService UserService)
+        private readonly IUserService _userService;
+        public AuthorizeController(UnitOfWork _uow, IUserService userService)
         {
+            _userService = userService;
             UOW = _uow;
         }
 
@@ -26,7 +27,8 @@ namespace Ejab.Rest.Controllers
         {
             if (vm != null)
             {
-                var user = UOW.User.GetAll().SingleOrDefault(x => x.FirstName+""+x.LastName == vm.username && x.Password == vm.password);
+                var encryptedPassWord = BAL.Utility.Utility.Encrypt(vm.password);
+                var user = UOW.User.GetAll().FirstOrDefault(x => x.Email == vm.Email && x.Password == encryptedPassWord);
                 if (user != null)
                 {
                     switch (vm.grant_type)
@@ -34,7 +36,7 @@ namespace Ejab.Rest.Controllers
                         case "user_web_auth"://web aut
                           //  UOW.SysLog.(ActionData.insert, " دخول المستخدم " + vm.username + " الي النظام   ", user.Id);
                             UOW.Commit();
-                            return Ok(_UserService.GenerateToken(user));
+                            return Ok(_userService.GenerateToken(user));
                             break;
                         //case "user_auth"://mobile
                         //    UOW.SysLog.AddNewLog(ActionData.insert, " دخول المستخدم " + vm.username + " الي النظام   ", user.Id);

@@ -58,10 +58,10 @@ namespace Ejab.Rest
                         //
                         //c.BasicAuth("basic")
                         //    .Description("Basic HTTP Authentication");
-                        //
-                        //c.ApiKey("apiKey")
+                        
+                        //c.ApiKey("Authorization")
                         //    .Description("API Key Authentication")
-                        //    .Name("apiKey")
+                        //    .Name("Authorization")
                         //    .In("header");
                         //
                         //c.OAuth2("oauth2")

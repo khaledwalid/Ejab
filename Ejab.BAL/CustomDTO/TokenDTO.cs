@@ -13,8 +13,8 @@ namespace Ejab.BAL.CustomDTO
         public string type;
         public string full_name;
         public string email;
-        public long issued_on;
-        public long expires_on;
+        public string issued_on;
+        public string expires_on;
         public string[] roles;
     }
 }

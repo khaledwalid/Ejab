@@ -88,12 +88,13 @@ namespace Ejab.Rest.Filters
         {
             string authHeaderValue = null;
             var authRequest = filterContext.Request.Headers.Authorization;
-            if (authRequest != null && !String.IsNullOrEmpty(authRequest.Scheme) && authRequest.Scheme == "user_auth")
+            if (authRequest != null && !string.IsNullOrEmpty(authRequest.Scheme) && authRequest.Scheme == "user_auth")
                 authHeaderValue = authRequest.Parameter;
             if (string.IsNullOrEmpty(authHeaderValue))
                 return null;
             authHeaderValue = Utility.Base64Decode(authHeaderValue);
             authHeaderValue = '{' + authHeaderValue + '}';
+            authHeaderValue = authHeaderValue.Replace("�", "");
             var credentials = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Security.TokenVM>(authHeaderValue);
 
             return credentials == null ? null : new BasicAuthenticationIdentity(credentials);
